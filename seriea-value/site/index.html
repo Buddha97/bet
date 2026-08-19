@@ -84,6 +84,16 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
 .leg{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:8px 0;border-bottom:1px dotted var(--line)}
 .leg-match{grid-column:1/-1;font-size:11px} .leg-label{font-size:13.5px}
 .combo-foot{font-size:11px;color:var(--muted);margin-top:10px}
+.hist{margin-top:48px}
+.hist-summary{font-size:13px;color:var(--muted);margin-bottom:14px}
+.hist-summary b{color:var(--paper)}
+.hrow{display:grid;grid-template-columns:74px 1fr auto 22px;gap:12px;align-items:center;
+  padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.hrow .hdate{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
+.hrow .hplay{color:var(--muted);margin-left:4px}
+.hrow .hodd{font-family:'Space Mono',monospace}
+.hicon{font-weight:700;text-align:center;font-family:'Space Mono',monospace}
+.hicon.won{color:var(--mint)} .hicon.lost{color:var(--clay)} .hicon.pending{color:var(--muted)}
 </style></head><body><div class="wrap">
   <header>
     <div>
@@ -91,7 +101,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
       <div class="nav"><a href="come-funziona.html">Come funziona &rarr;</a></div>
     </div>
     <div class="meta-line">
-      <div class="muted">aggiornato</div><div class="mono">19/08/2026 20:13</div>
+      <div class="muted">aggiornato</div><div class="mono">19/08/2026 20:31</div>
       <div class="muted" style="margin-top:8px">base storica</div>
       <div class="mono">558 gare · 2024, 2025, 2026</div>
     </div>
@@ -112,28 +122,26 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
       statistica, non una promessa: nel breve periodo si vince e si perde.</div>
   </section>
 
-  
-
-  <h3 class="eyebrow" style="margin-top:44px">Prossime gare · il consiglio del sistema</h3>
+  <h3 class="eyebrow" style="margin-top:44px">Singole · il consiglio del sistema</h3>
   <div class="grid" id="grid">
-    <article class="slip" data-p="0.551" data-odd="1.57">
+    <article class="slip" data-p="0.783" data-odd="1.2">
       <div class="slip-top"><span class="date mono">2026-08-22</span>
         <span class="idx mono">#01</span></div>
       <h2 class="teams"><span>Inter</span><em>vs</em><span>Monza</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
         
-      <div class="gauge" title="Prob. prudente 55% (grezza 64%)">
-        <div class="gauge-fill t-bassa" style="width:55%"></div>
+      <div class="gauge" title="Prob. prudente 78% (grezza 86%)">
+        <div class="gauge-fill t-alta" style="width:78%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">55%</span>
+      <div class="gauge-legend"><span class="mono">78%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 55 gare</span>
-          <span class="quota">quota 1.57</span></div>
+          <span class="quota">quota 1.20</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -142,76 +150,24 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.527" data-odd="1.64">
-      <div class="slip-top"><span class="date mono">2026-08-22</span>
+    <article class="slip" data-p="0.759" data-odd="1.28">
+      <div class="slip-top"><span class="date mono">2026-08-23</span>
         <span class="idx mono">#02</span></div>
-      <h2 class="teams"><span>Genoa</span><em>vs</em><span>Napoli</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
-        
-      <div class="gauge" title="Prob. prudente 53% (grezza 61%)">
-        <div class="gauge-fill t-bassa" style="width:53%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend"><span class="mono">53%</span>
-        <span class="muted">soglia 1.5 = 67%</span></div>
-        <div class="pick-meta mono"><span>campione 59 gare</span>
-          <span class="quota">quota 1.64</span></div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.633" data-odd="1.38">
-      <div class="slip-top"><span class="date mono">2026-08-23</span>
-        <span class="idx mono">#03</span></div>
-      <h2 class="teams"><span>Frosinone</span><em>vs</em><span>Juventus</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
-        
-      <div class="gauge" title="Prob. prudente 63% (grezza 72%)">
-        <div class="gauge-fill t-bassa" style="width:63%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend"><span class="mono">63%</span>
-        <span class="muted">soglia 1.5 = 67%</span></div>
-        <div class="pick-meta mono"><span>campione 47 gare</span>
-          <span class="quota">quota 1.38</span></div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.649" data-odd="1.37">
-      <div class="slip-top"><span class="date mono">2026-08-23</span>
-        <span class="idx mono">#04</span></div>
       <h2 class="teams"><span>Torino</span><em>vs</em><span>AC Milan</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
         
-      <div class="gauge" title="Prob. prudente 65% (grezza 73%)">
-        <div class="gauge-fill t-bassa" style="width:65%"></div>
+      <div class="gauge" title="Prob. prudente 76% (grezza 83%)">
+        <div class="gauge-fill t-alta" style="width:76%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">65%</span>
+      <div class="gauge-legend"><span class="mono">76%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 59 gare</span>
-          <span class="quota">quota 1.37</span></div>
+          <span class="quota">quota 1.28</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -220,24 +176,24 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.546" data-odd="1.58">
+    <article class="slip" data-p="0.708" data-odd="1.44">
       <div class="slip-top"><span class="date mono">2026-08-23</span>
-        <span class="idx mono">#05</span></div>
+        <span class="idx mono">#03</span></div>
       <h2 class="teams"><span>Atalanta</span><em>vs</em><span>Sassuolo</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Gol totali UNDER 3.5</span>
+          <span class="chip t-media">Confidenza media</span></div>
         
-      <div class="gauge" title="Prob. prudente 55% (grezza 64%)">
-        <div class="gauge-fill t-bassa" style="width:55%"></div>
+      <div class="gauge" title="Prob. prudente 71% (grezza 79%)">
+        <div class="gauge-fill t-media" style="width:71%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">55%</span>
+      <div class="gauge-legend"><span class="mono">71%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 52 gare</span>
-          <span class="quota">quota 1.58</span></div>
+          <span class="quota">quota 1.44</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -246,24 +202,50 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.672" data-odd="1.33">
+    <article class="slip" data-p="0.702" data-odd="1.4">
+      <div class="slip-top"><span class="date mono">2026-08-23</span>
+        <span class="idx mono">#04</span></div>
+      <h2 class="teams"><span>Frosinone</span><em>vs</em><span>Juventus</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gioca Gol totali UNDER 3.5</span>
+          <span class="chip t-media">Confidenza media</span></div>
+        
+      <div class="gauge" title="Prob. prudente 70% (grezza 79%)">
+        <div class="gauge-fill t-media" style="width:70%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">70%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 47 gare</span>
+          <span class="quota">quota 1.40</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.763" data-odd="1.25">
       <div class="slip-top"><span class="date mono">2026-08-24</span>
-        <span class="idx mono">#06</span></div>
+        <span class="idx mono">#05</span></div>
       <h2 class="teams"><span>Bologna</span><em>vs</em><span>Lazio</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Gol totali UNDER 3.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
         
-      <div class="gauge" title="Prob. prudente 67% (grezza 75%)">
-        <div class="gauge-fill t-bassa" style="width:67%"></div>
+      <div class="gauge" title="Prob. prudente 76% (grezza 83%)">
+        <div class="gauge-fill t-alta" style="width:76%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">67%</span>
+      <div class="gauge-legend"><span class="mono">76%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 60 gare</span>
-          <span class="quota">quota 1.33</span></div>
+          <span class="quota">quota 1.25</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -272,24 +254,24 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.567" data-odd="1.59">
+    <article class="slip" data-p="0.712" data-odd="1.4">
       <div class="slip-top"><span class="date mono">2026-08-24</span>
-        <span class="idx mono">#07</span></div>
+        <span class="idx mono">#06</span></div>
       <h2 class="teams"><span>AS Roma</span><em>vs</em><span>Fiorentina</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Corner totali UNDER 10.5</span>
+          <span class="chip t-media">Confidenza media</span></div>
         
-      <div class="gauge" title="Prob. prudente 57% (grezza 63%)">
-        <div class="gauge-fill t-bassa" style="width:57%"></div>
+      <div class="gauge" title="Prob. prudente 71% (grezza 77%)">
+        <div class="gauge-fill t-media" style="width:71%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">57%</span>
+      <div class="gauge-legend"><span class="mono">71%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 100 gare</span>
-          <span class="quota">quota 1.59</span></div>
+          <span class="quota">quota 1.40</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -298,102 +280,24 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.591" data-odd="1.47">
-      <div class="slip-top"><span class="date mono">2026-08-28</span>
-        <span class="idx mono">#08</span></div>
-      <h2 class="teams"><span>AC Milan</span><em>vs</em><span>Venezia</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
-        
-      <div class="gauge" title="Prob. prudente 59% (grezza 68%)">
-        <div class="gauge-fill t-bassa" style="width:59%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend"><span class="mono">59%</span>
-        <span class="muted">soglia 1.5 = 67%</span></div>
-        <div class="pick-meta mono"><span>campione 50 gare</span>
-          <span class="quota">quota 1.47</span></div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.575" data-odd="1.5">
-      <div class="slip-top"><span class="date mono">2026-08-29</span>
-        <span class="idx mono">#09</span></div>
-      <h2 class="teams"><span>Fiorentina</span><em>vs</em><span>Frosinone</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
-        
-      <div class="gauge" title="Prob. prudente 57% (grezza 67%)">
-        <div class="gauge-fill t-bassa" style="width:57%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend"><span class="mono">57%</span>
-        <span class="muted">soglia 1.5 = 67%</span></div>
-        <div class="pick-meta mono"><span>campione 48 gare</span>
-          <span class="quota">quota 1.50</span></div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.581" data-odd="1.5">
-      <div class="slip-top"><span class="date mono">2026-08-29</span>
-        <span class="idx mono">#10</span></div>
-      <h2 class="teams"><span>Juventus</span><em>vs</em><span>Parma</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
-        
-      <div class="gauge" title="Prob. prudente 58% (grezza 67%)">
-        <div class="gauge-fill t-bassa" style="width:58%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend"><span class="mono">58%</span>
-        <span class="muted">soglia 1.5 = 67%</span></div>
-        <div class="pick-meta mono"><span>campione 54 gare</span>
-          <span class="quota">quota 1.50</span></div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.678" data-odd="1.32">
+    <article class="slip" data-p="0.78" data-odd="1.28">
       <div class="slip-top"><span class="date mono">2026-08-30</span>
-        <span class="idx mono">#11</span></div>
+        <span class="idx mono">#07</span></div>
       <h2 class="teams"><span>Napoli</span><em>vs</em><span>Como</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
         
-      <div class="gauge" title="Prob. prudente 68% (grezza 76%)">
-        <div class="gauge-fill t-bassa" style="width:68%"></div>
+      <div class="gauge" title="Prob. prudente 78% (grezza 85%)">
+        <div class="gauge-fill t-alta" style="width:78%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">68%</span>
+      <div class="gauge-legend"><span class="mono">78%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 54 gare</span>
-          <span class="quota">quota 1.32</span></div>
+          <span class="quota">quota 1.28</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -402,50 +306,24 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.544" data-odd="1.59">
+    <article class="slip" data-p="0.69" data-odd="1.45">
       <div class="slip-top"><span class="date mono">2026-08-30</span>
-        <span class="idx mono">#12</span></div>
-      <h2 class="teams"><span>Cagliari</span><em>vs</em><span>Inter</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
-        
-      <div class="gauge" title="Prob. prudente 54% (grezza 63%)">
-        <div class="gauge-fill t-bassa" style="width:54%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend"><span class="mono">54%</span>
-        <span class="muted">soglia 1.5 = 67%</span></div>
-        <div class="pick-meta mono"><span>campione 59 gare</span>
-          <span class="quota">quota 1.59</span></div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.602" data-odd="1.46">
-      <div class="slip-top"><span class="date mono">2026-08-30</span>
-        <span class="idx mono">#13</span></div>
+        <span class="idx mono">#08</span></div>
       <h2 class="teams"><span>Lazio</span><em>vs</em><span>Genoa</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Corner totali UNDER 10.5</span>
+          <span class="chip t-media">Confidenza media</span></div>
         
-      <div class="gauge" title="Prob. prudente 60% (grezza 68%)">
-        <div class="gauge-fill t-bassa" style="width:60%"></div>
+      <div class="gauge" title="Prob. prudente 69% (grezza 77%)">
+        <div class="gauge-fill t-media" style="width:69%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">60%</span>
+      <div class="gauge-legend"><span class="mono">69%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 60 gare</span>
-          <span class="quota">quota 1.46</span></div>
+          <span class="quota">quota 1.45</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -454,50 +332,24 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.575" data-odd="1.54">
+    <article class="slip" data-p="0.708" data-odd="1.41">
       <div class="slip-top"><span class="date mono">2026-08-31</span>
-        <span class="idx mono">#14</span></div>
-      <h2 class="teams"><span>Lecce</span><em>vs</em><span>AS Roma</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
-        
-      <div class="gauge" title="Prob. prudente 57% (grezza 65%)">
-        <div class="gauge-fill t-bassa" style="width:57%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend"><span class="mono">57%</span>
-        <span class="muted">soglia 1.5 = 67%</span></div>
-        <div class="pick-meta mono"><span>campione 74 gare</span>
-          <span class="quota">quota 1.54</span></div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.517" data-odd="1.67">
-      <div class="slip-top"><span class="date mono">2026-08-31</span>
-        <span class="idx mono">#15</span></div>
+        <span class="idx mono">#09</span></div>
       <h2 class="teams"><span>Atalanta</span><em>vs</em><span>Bologna</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">Gioca Corner totali OVER 7.5</span>
-          <span class="chip t-bassa">Confidenza bassa</span></div>
+        <div class="pick-head"><span class="pick-label">Gioca Gol totali OVER 1.5</span>
+          <span class="chip t-media">Confidenza media</span></div>
         
-      <div class="gauge" title="Prob. prudente 52% (grezza 60%)">
-        <div class="gauge-fill t-bassa" style="width:52%"></div>
+      <div class="gauge" title="Prob. prudente 71% (grezza 78%)">
+        <div class="gauge-fill t-media" style="width:71%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend"><span class="mono">52%</span>
+      <div class="gauge-legend"><span class="mono">71%</span>
         <span class="muted">soglia 1.5 = 67%</span></div>
         <div class="pick-meta mono"><span>campione 60 gare</span>
-          <span class="quota">quota 1.67</span></div>
+          <span class="quota">quota 1.41</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -506,6 +358,30 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article></div>
+
+  
+      <section class="combos"><h3 class="eyebrow">Multiple · massimo 3 · gambe da partite diverse</h3>
+        <div class="combo-grid">
+    <article class="combo">
+      <div class="combo-top"><span class="mono muted">DOPPIA #1</span>
+        <span class="combo-odds mono">quota equa ~1.37</span></div>
+      <div class="leg"><span class="leg-match mono muted">Inter-Monza</span><span class="leg-label">Gol totali OVER 1.5</span><span class="mono">78%</span></div><div class="leg"><span class="leg-match mono muted">Napoli-Como</span><span class="leg-label">Gol totali OVER 1.5</span><span class="mono">78%</span></div>
+      <div class="combo-foot mono">prob. combinata stimata 73% · gambe da partite diverse</div>
+    </article>
+    <article class="combo">
+      <div class="combo-top"><span class="mono muted">DOPPIA #2</span>
+        <span class="combo-odds mono">quota equa ~1.4</span></div>
+      <div class="leg"><span class="leg-match mono muted">Inter-Monza</span><span class="leg-label">Gol totali OVER 1.5</span><span class="mono">78%</span></div><div class="leg"><span class="leg-match mono muted">Bologna-Lazio</span><span class="leg-label">Gol totali UNDER 3.5</span><span class="mono">76%</span></div>
+      <div class="combo-foot mono">prob. combinata stimata 71% · gambe da partite diverse</div>
+    </article>
+    <article class="combo">
+      <div class="combo-top"><span class="mono muted">DOPPIA #3</span>
+        <span class="combo-odds mono">quota equa ~1.41</span></div>
+      <div class="leg"><span class="leg-match mono muted">Inter-Monza</span><span class="leg-label">Gol totali OVER 1.5</span><span class="mono">78%</span></div><div class="leg"><span class="leg-match mono muted">Torino-AC Milan</span><span class="leg-label">Gol totali OVER 1.5</span><span class="mono">76%</span></div>
+      <div class="combo-foot mono">prob. combinata stimata 71% · gambe da partite diverse</div>
+    </article></div></section>
+
+  <section class="hist"><h3 class="eyebrow">Storico consigli</h3><div class="hist-summary">Consigli conclusi: <b>0</b> vinti su <b>0</b> (<b>—</b>). Si aggiorna dopo ogni giornata.</div><div class="hist-list"><div class="hrow"><span class="hdate">2026-08-31</span><span class="hmatch"><b>Atalanta - Bologna</b> <span class="hplay">Gol totali OVER 1.5</span></span><span class="hodd">1.41</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-30</span><span class="hmatch"><b>Napoli - Como</b> <span class="hplay">Gol totali OVER 1.5</span></span><span class="hodd">1.28</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-30</span><span class="hmatch"><b>Lazio - Genoa</b> <span class="hplay">Corner totali UNDER 10.5</span></span><span class="hodd">1.45</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-24</span><span class="hmatch"><b>Bologna - Lazio</b> <span class="hplay">Gol totali UNDER 3.5</span></span><span class="hodd">1.25</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-24</span><span class="hmatch"><b>AS Roma - Fiorentina</b> <span class="hplay">Corner totali UNDER 10.5</span></span><span class="hodd">1.40</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-23</span><span class="hmatch"><b>Torino - AC Milan</b> <span class="hplay">Gol totali OVER 1.5</span></span><span class="hodd">1.28</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-23</span><span class="hmatch"><b>Atalanta - Sassuolo</b> <span class="hplay">Gol totali UNDER 3.5</span></span><span class="hodd">1.44</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-23</span><span class="hmatch"><b>Frosinone - Juventus</b> <span class="hplay">Gol totali UNDER 3.5</span></span><span class="hodd">1.40</span><span class="hicon pending">·</span></div><div class="hrow"><span class="hdate">2026-08-22</span><span class="hmatch"><b>Inter - Monza</b> <span class="hplay">Gol totali OVER 1.5</span></span><span class="hodd">1.20</span><span class="hicon pending">·</span></div></div></section>
 
   <footer>Strumento statistico a uso personale tra amici. I consigli nascono dallo storico delle
     partite, non da certezze: nel breve periodo si vince e si perde. 18+. Il gioco può causare
