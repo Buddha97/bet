@@ -13,6 +13,10 @@ API_KEY = "INCOLLA_QUI_LA_TUA_CHIAVE"
 # Serie A su API-Football ha id = 135. Non cambiare, salvo tu voglia un altro campionato.
 LEAGUE_ID = 135
 
+# Quanti giorni in avanti guardare per le "prossime gare".
+#  14 = circa la prossima giornata o due. Alza per vederne di piu'.
+UPCOMING_DAYS = 14
+
 # Bookmaker per le quote reali. Bet365 = 8 su API-Football.
 BET365_ID = 8
 

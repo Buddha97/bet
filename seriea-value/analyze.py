@@ -189,6 +189,9 @@ def tier(s):
 def build_payload(fixtures, feats, odds):
     home_ids, away_ids = team_match_ids(feats)
     tracked = set(config.TEAMS.values())
+    # finestra temporale: solo gare da oggi ai prossimi N giorni
+    today = datetime.datetime.now(_TZ).date()
+    horizon = today + datetime.timedelta(days=getattr(config, "UPCOMING_DAYS", 14))
     upcoming = []
     for arr in fixtures.values():
         for fx in arr:
@@ -196,6 +199,12 @@ def build_payload(fixtures, feats, odds):
                 continue
             if fx["teams"]["home"]["id"] not in tracked and \
                fx["teams"]["away"]["id"] not in tracked:
+                continue
+            try:
+                fxdate = datetime.date.fromisoformat(fx["fixture"]["date"][:10])
+            except Exception:
+                continue
+            if fxdate < today or fxdate > horizon:
                 continue
             upcoming.append(fx)
     # dedup + ordina per data

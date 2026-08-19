@@ -140,11 +140,21 @@ def cmd_fetch():
     odds_path = os.path.join(DATA_DIR, "odds.json")
     odds = json.load(open(odds_path)) if os.path.exists(odds_path) else {}
     bookmaker = getattr(config, "BET365_ID", 8)
+    horizon_days = getattr(config, "UPCOMING_DAYS", 14)
+    today = datetime.date.today()
     ns = {}
     for arr in fixtures.values():
         for fx in arr:
-            if fx["fixture"]["status"]["short"] == "NS":
-                ns[str(fx["fixture"]["id"])] = fx
+            if fx["fixture"]["status"]["short"] != "NS":
+                continue
+            try:
+                fxdate = datetime.date.fromisoformat(fx["fixture"]["date"][:10])
+            except Exception:
+                continue
+            # solo gare imminenti: le quote esistono solo pochi giorni prima
+            if fxdate < today or (fxdate - today).days > horizon_days:
+                continue
+            ns[str(fx["fixture"]["id"])] = fx
     print(f"Quote Bet365 da scaricare: {len(ns)} partite future.")
     for fid, fx in ns.items():
         h = fx["teams"]["home"]["name"]; a = fx["teams"]["away"]["name"]
