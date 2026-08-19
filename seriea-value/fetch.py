@@ -24,7 +24,7 @@ def _key():
     if not k or k == "INCOLLA_QUI_LA_TUA_CHIAVE":
         sys.exit("ERRORE: nessuna chiave. Impostala in config.py o nella "
                  "variabile d'ambiente APIFOOTBALL_KEY.")
-    return k
+           return k.strip()
 
 
 def _load_counter():
