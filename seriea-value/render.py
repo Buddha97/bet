@@ -2,6 +2,17 @@
 """Genera il sito (index) e la pagina 'Come funziona' dal payload."""
 
 IMPLIED_15 = 66.7
+
+
+def _itdate(iso):
+    """2026-08-22 -> 22/08/26 (formato italiano). Se non riconosce, lascia com'e'."""
+    try:
+        y, m, d = iso[:10].split("-")
+        return f"{d}/{m}/{y[2:]}"
+    except Exception:
+        return iso
+
+
 TIER_LABEL = {"alta": "Confidenza alta", "media": "Confidenza media",
               "bassa": "Confidenza bassa"}
 
@@ -136,7 +147,7 @@ def _match_card(m, idx):
     odd = top["odd"] if top.get("odd") else 1.5
     return f"""
     <article class="slip" data-p="{top['lower']}" data-odd="{odd}">
-      <div class="slip-top"><span class="date mono">{m['date']}</span>
+      <div class="slip-top"><span class="date mono">{_itdate(m['date'])}</span>
         <span class="idx mono">#{idx:02d}</span></div>
       <h2 class="teams"><span>{m['home']}</span><em>vs</em><span>{m['away']}</span></h2>
       <div class="perf"></div>
@@ -179,7 +190,7 @@ def _history_block(p):
     for r in rows:
         st = r.get("status", "pending")
         odd = f'{r["odd"]:.2f}' if r.get("odd") else "\u2014"
-        trs += (f'<div class="hrow"><span class="hdate">{r["date"]}</span>'
+        trs += (f'<div class="hrow"><span class="hdate">{_itdate(r["date"])}</span>'
                 f'<span class="hmatch"><b>{r["home"]} - {r["away"]}</b> '
                 f'<span class="hplay">{r["label"]}</span></span>'
                 f'<span class="hodd">{odd}</span>'
