@@ -135,7 +135,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
     <div class="brand">Schedina<br><em>free money</em></div>
     <div class="meta-line">
       <div class="muted">aggiornato</div>
-      <div class="mono">19/08/2026 17:36</div>
+      <div class="mono">19/08/2026 18:16</div>
       <div class="muted" style="margin-top:8px">base storica</div>
       <div class="mono">270 gare · 2024, 2025, 2026</div>
     </div>
@@ -147,18 +147,8 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
         <label>Budget mensile (€)</label>
         <input id="budget" type="number" min="0" step="10" placeholder="es. 100">
       </div>
-      <div class="field">
-        <label>Giornate al mese</label>
-        <input id="rounds" type="number" min="1" step="1" value="4">
-      </div>
-      <div class="field">
-        <label>Come puntare</label>
-        <select id="method">
-          <option value="flat">Uguale su tutte</option>
-          <option value="prop">Proporzionale alla forza</option>
-          <option value="pct">Percentuale fissa (5%)</option>
-        </select>
-      </div>
+      <input id="rounds" type="hidden" value="4">
+      <input id="method" type="hidden" value="flat">
       <div class="bank-out">
         <div><div class="k">Puntata / giornata</div>
           <div class="v" id="tot-stake">—</div></div>
@@ -185,7 +175,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
     </article></div>
       </section>
 
-  <h3 class="eyebrow" style="margin-top:44px">Prossime gare · 3 migliori a confidenza alta</h3>
+  <h3 class="eyebrow" style="margin-top:44px">Prossime gare · 4 migliori a confidenza alta</h3>
   <div class="grid" id="grid">
     <article class="slip" data-p="0.868" data-edge="0.2010">
       <div class="slip-top">
@@ -222,7 +212,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
     </article>
-    <article class="slip" data-p="0.821" data-edge="0.1540">
+    <article class="slip" data-p="0.804" data-edge="0.1370">
       <div class="slip-top">
         <span class="date mono">2026-08-25</span>
         <span class="idx mono">#02</span>
@@ -232,22 +222,22 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
       
       <div class="pick">
         <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="pick-label">Corner totali OVER 7.5</span>
           <span class="chip t-alta">Confidenza alta</span>
         </div>
         
-      <div class="gauge" title="Prob. prudente 82% (grezza 88%)">
-        <div class="gauge-fill t-alta" style="width:82%"></div>
+      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
+        <div class="gauge-fill t-alta" style="width:80%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
       <div class="gauge-legend">
-        <span class="mono">82%</span>
+        <span class="mono">80%</span>
         <span class="muted">soglia 1.5 = 67%</span>
       </div>
         <div class="pick-meta mono">
           <span>campione 67 gare</span>
-          <span>quota equa ~1.14</span>
-          <span class="edge">margine +15.4 pt</span>
+          <span>quota equa ~1.16</span>
+          <span class="edge">margine +13.7 pt</span>
         </div>
       </div>
       <div class="stake-box">
@@ -291,6 +281,41 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
         <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
           <span class="stake-v mono ret" data-return>—</span></div>
       </div>
+    </article>
+    <article class="slip" data-p="0.735" data-edge="0.0680">
+      <div class="slip-top">
+        <span class="date mono">2026-08-23</span>
+        <span class="idx mono">#04</span>
+      </div>
+      <h2 class="teams"><span>Atalanta</span><em>vs</em><span>Juventus</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head">
+          <span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span>
+        </div>
+        
+      <div class="gauge" title="Prob. prudente 74% (grezza 81%)">
+        <div class="gauge-fill t-alta" style="width:74%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend">
+        <span class="mono">74%</span>
+        <span class="muted">soglia 1.5 = 67%</span>
+      </div>
+        <div class="pick-meta mono">
+          <span>campione 62 gare</span>
+          <span>quota equa ~1.24</span>
+          <span class="edge">margine +6.8 pt</span>
+        </div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
     </article></div>
 
   <footer>
@@ -310,11 +335,9 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
   var method = document.getElementById('method');
   var slips  = Array.prototype.slice.call(document.querySelectorAll('.slip[data-p]'));
 
-  // memoria nel browser
+  // memoria nel browser (solo il budget; metodo e giornate sono fissi)
   try {
     if(localStorage.getItem('sfm_budget')) budget.value = localStorage.getItem('sfm_budget');
-    if(localStorage.getItem('sfm_rounds')) rounds.value = localStorage.getItem('sfm_rounds');
-    if(localStorage.getItem('sfm_method')) method.value = localStorage.getItem('sfm_method');
   } catch(e){}
 
   function euro(x){ return '€' + (Math.round(x*100)/100).toFixed(2); }
@@ -355,15 +378,9 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
     mEl.className = 'v ' + (B ? (monthly>=0?'pos':'neg') : '');
 
     var note = document.getElementById('bank-note');
-    if(m === 'pct' && B){
-      note.textContent = 'Percentuale fissa: 5% del budget-giornata su ogni giocata'
-        + ' (con ' + N + ' giocate il totale può non coincidere col budget).';
-    }
 
     try {
       localStorage.setItem('sfm_budget', budget.value);
-      localStorage.setItem('sfm_rounds', rounds.value);
-      localStorage.setItem('sfm_method', method.value);
     } catch(e){}
   }
 
