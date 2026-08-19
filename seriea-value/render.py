@@ -153,10 +153,8 @@ def _match_card(m, idx):
       <div class="perf"></div>
       {_pick(top)}
       <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
+        <div class="stake-row"><span class="stake-k mono">punta consigliata</span>
           <span class="stake-v mono" data-stake>\u2014</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>\u2014</span></div>
       </div>
     </article>"""
 
@@ -234,12 +232,11 @@ def render(p):
       <input id="rounds" type="hidden" value="4">
       <div class="bank-out">
         <div><div class="k">Puntata / giornata</div><div class="v" id="tot-stake">\u2014</div></div>
-        <div><div class="k">Guadagno atteso / mese</div><div class="v" id="tot-month">\u2014</div></div>
       </div>
     </div>
-    <div class="bank-note">Le puntate distribuiscono il budget di una giornata sulle giocate consigliate.
-      Il ritorno atteso usa la probabilit\u00e0 storica prudente e la quota mostrata. \u00c8 una media
-      statistica, non una promessa: nel breve periodo si vince e si perde.</div>
+    <div class="bank-note">Il budget viene distribuito in parti uguali sulle giocate consigliate,
+      per darti un'idea di quanto puntare su ciascuna. Sono previsioni statistiche, non certezze:
+      giocate solo importi che potete permettervi di perdere.</div>
   </section>
 
   <h3 class="eyebrow" style="margin-top:44px">Singole \u00b7 il consiglio del sistema</h3>
@@ -263,23 +260,13 @@ def render(p):
   function recompute(){{
     var B=parseFloat(budget.value)||0;
     var R=Math.max(1,parseInt(rounds.value)||1);
-    var perRound=B/R, N=slips.length, totStake=0, totRet=0;
+    var perRound=B/R, N=slips.length, totStake=0;
     slips.forEach(function(el){{
-      var pi=parseFloat(el.dataset.p);
-      var odd=parseFloat(el.dataset.odd)||1.5;
-      var stake=perRound/N;
-      var ret=stake*(odd*pi-1);
-      totStake+=stake; totRet+=ret;
+      var stake=N?perRound/N:0;
+      totStake+=stake;
       el.querySelector('[data-stake]').textContent=B?euro(stake):'\u2014';
-      var rEl=el.querySelector('[data-return]');
-      rEl.textContent=B?((ret>=0?'+':'')+euro(ret)):'\u2014';
-      rEl.classList.toggle('neg',ret<0);
     }});
-    var sEl=document.getElementById('tot-stake'), mEl=document.getElementById('tot-month');
-    sEl.textContent=B?euro(totStake):'\u2014';
-    var monthly=totRet*R;
-    mEl.textContent=B?((monthly>=0?'+':'')+euro(monthly)):'\u2014';
-    mEl.className='v '+(B?(monthly>=0?'pos':'neg'):'');
+    document.getElementById('tot-stake').textContent=B?euro(totStake):'\u2014';
     try{{ localStorage.setItem('sfm_budget',budget.value); }}catch(e){{}}
   }}
   budget.addEventListener('input',recompute);
