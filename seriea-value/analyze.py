@@ -171,28 +171,43 @@ def build_payload(fixtures, feats):
         seen[fx["fixture"]["id"]] = fx
     upcoming = sorted(seen.values(), key=lambda x: x["fixture"]["date"])
 
-    matches = []
+    per_match = []
     singles_pool = []   # per costruire le doppie tra partite diverse
     for fx in upcoming:
         sugg = suggestions_for_fixture(fx, feats, home_ids, away_ids)
-        singles = [s for s in sugg if s["lower"] >= config.MIN_PROB_SINGLE]
+        passing = [s for s in sugg if s["lower"] >= config.MIN_PROB_SINGLE]
         combo_legs = [s for s in sugg if s["lower"] >= config.MIN_PROB_COMBO_LEG]
-        m = {
-            "home": fx["teams"]["home"]["name"],
-            "away": fx["teams"]["away"]["name"],
-            "date": fx["fixture"]["date"][:10],
-            "top": sugg[0] if sugg else None,
-            "singles": singles[:4],
-            "all": sugg[:8],
-        }
+        home = fx["teams"]["home"]["name"]; away = fx["teams"]["away"]["name"]
+        if passing:
+            per_match.append({"home": home, "away": away,
+                              "date": fx["fixture"]["date"][:10],
+                              "options": passing})
         for leg in combo_legs[:1]:
-            singles_pool.append({"match": f'{m["home"]}-{m["away"]}', **leg})
-        matches.append(m)
+            singles_pool.append({"match": f"{home}-{away}", **leg})
+
+    # SELEZIONE VARIA: 1 giocata per partita, evitando di ripetere sempre lo
+    # stesso mercato. Partite piu' solide scelgono per prime; una penalita'
+    # spinge le altre verso mercati diversi (corner / gol / cartellini / btts).
+    per_match.sort(key=lambda mm: mm["options"][0]["lower"], reverse=True)
+    market_count = {}
+    matches = []
+    for mm in per_match:
+        best, best_score = None, -1.0
+        for s in mm["options"]:
+            score = s["lower"] - 0.04 * market_count.get(s["market"], 0)
+            if score > best_score:
+                best_score, best = score, s
+        market_count[best["market"]] = market_count.get(best["market"], 0) + 1
+        matches.append({"home": mm["home"], "away": mm["away"],
+                        "date": mm["date"], "top": best})
+
+    # le 10 piu' solide, ordinate per probabilita'
+    matches.sort(key=lambda m: m["top"]["lower"], reverse=True)
+    matches = matches[:10]
 
     # doppie: prendi le 2 gambe piu' solide da partite DIVERSE (indipendenza)
     combos = []
     singles_pool.sort(key=lambda x: x["lower"], reverse=True)
-    used = set()
     for i in range(len(singles_pool)):
         for j in range(i+1, len(singles_pool)):
             a, b = singles_pool[i], singles_pool[j]
@@ -211,16 +226,11 @@ def build_payload(fixtures, feats):
                 "edge": round(s["lower"] - IMPLIED_15, 3)}
 
     for m in matches:
-        m["top"] = clean(m["top"]) if m["top"] else None
-        m["singles"] = [clean(s) for s in m["singles"]]
-        m["all"] = [clean(s) for s in m["all"]]
+        m["top"] = clean(m["top"])
     for c in combos:
         c["legs"] = [{"match": l["match"], **clean(l)} for l in c["legs"]]
 
-    # Solo giocate a CONFIDENZA ALTA, le 10 piu' solide (ordinate per prob.).
-    shown = [m for m in matches if m["top"] and m["top"]["tier"] == "alta"]
-    shown.sort(key=lambda m: m["top"]["lower"], reverse=True)
-    shown = shown[:10]
+    shown = matches
 
     return {
         "generated": datetime.datetime.now(_TZ).strftime("%d/%m/%Y %H:%M"),

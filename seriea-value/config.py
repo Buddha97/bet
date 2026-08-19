@@ -44,7 +44,7 @@ TEAMS = {
 # Una quota 1.5 = probabilita' implicita del 66.7%. Per suggerire
 # una singola a 1.5 pretendiamo che la probabilita' STORICA PRUDENTE
 # (limite inferiore, vedi analyze.py) superi questa soglia:
-MIN_PROB_SINGLE = 0.72      # 72%: margine sopra il 66.7% della quota 1.5
+MIN_PROB_SINGLE = 0.68     # ~68%: soglia con margine reale sopra il 66.7% della quota 1.5
 
 # Per una doppia combinata che fa ~1.5, ogni gamba deve essere quasi certa:
 MIN_PROB_COMBO_LEG = 0.82   # 82% per gamba (0.82*0.82 -> combinata ~1.5)

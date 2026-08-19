@@ -238,18 +238,8 @@ footer{{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
         <label>Budget mensile (€)</label>
         <input id="budget" type="number" min="0" step="10" placeholder="es. 100">
       </div>
-      <div class="field">
-        <label>Giornate al mese</label>
-        <input id="rounds" type="number" min="1" step="1" value="4">
-      </div>
-      <div class="field">
-        <label>Come puntare</label>
-        <select id="method">
-          <option value="flat">Uguale su tutte</option>
-          <option value="prop">Proporzionale alla forza</option>
-          <option value="pct">Percentuale fissa (5%)</option>
-        </select>
-      </div>
+      <input id="rounds" type="hidden" value="4">
+      <input id="method" type="hidden" value="flat">
       <div class="bank-out">
         <div><div class="k">Puntata / giornata</div>
           <div class="v" id="tot-stake">—</div></div>
@@ -286,11 +276,9 @@ footer{{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
   var method = document.getElementById('method');
   var slips  = Array.prototype.slice.call(document.querySelectorAll('.slip[data-p]'));
 
-  // memoria nel browser
+  // memoria nel browser (solo il budget; metodo e giornate sono fissi)
   try {{
     if(localStorage.getItem('sfm_budget')) budget.value = localStorage.getItem('sfm_budget');
-    if(localStorage.getItem('sfm_rounds')) rounds.value = localStorage.getItem('sfm_rounds');
-    if(localStorage.getItem('sfm_method')) method.value = localStorage.getItem('sfm_method');
   }} catch(e){{}}
 
   function euro(x){{ return '€' + (Math.round(x*100)/100).toFixed(2); }}
@@ -331,15 +319,9 @@ footer{{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
     mEl.className = 'v ' + (B ? (monthly>=0?'pos':'neg') : '');
 
     var note = document.getElementById('bank-note');
-    if(m === 'pct' && B){{
-      note.textContent = 'Percentuale fissa: 5% del budget-giornata su ogni giocata'
-        + ' (con ' + N + ' giocate il totale può non coincidere col budget).';
-    }}
 
     try {{
       localStorage.setItem('sfm_budget', budget.value);
-      localStorage.setItem('sfm_rounds', rounds.value);
-      localStorage.setItem('sfm_method', method.value);
     }} catch(e){{}}
   }}
 
