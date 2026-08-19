@@ -95,6 +95,16 @@ SITE_CSS = BASE_CSS + """
 .leg{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:8px 0;border-bottom:1px dotted var(--line)}
 .leg-match{grid-column:1/-1;font-size:11px} .leg-label{font-size:13.5px}
 .combo-foot{font-size:11px;color:var(--muted);margin-top:10px}
+.hist{margin-top:48px}
+.hist-summary{font-size:13px;color:var(--muted);margin-bottom:14px}
+.hist-summary b{color:var(--paper)}
+.hrow{display:grid;grid-template-columns:74px 1fr auto 22px;gap:12px;align-items:center;
+  padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+.hrow .hdate{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
+.hrow .hplay{color:var(--muted);margin-left:4px}
+.hrow .hodd{font-family:'Space Mono',monospace}
+.hicon{font-weight:700;text-align:center;font-family:'Space Mono',monospace}
+.hicon.won{color:var(--mint)} .hicon.lost{color:var(--clay)} .hicon.pending{color:var(--muted)}
 """
 
 
@@ -154,6 +164,30 @@ def _combo_card(c, i):
     </article>"""
 
 
+def _history_block(p):
+    h = p.get("history") or {}
+    rows = h.get("rows", [])
+    if not rows:
+        return ""
+    settled = h.get("settled", 0); won = h.get("won", 0)
+    rate = f"{round(100*won/settled)}%" if settled else "\u2014"
+    summary = (f'<div class="hist-summary">Consigli conclusi: <b>{won}</b> vinti su '
+               f'<b>{settled}</b> (<b>{rate}</b>). Si aggiorna dopo ogni giornata.</div>')
+    icon = {"won": "\u2713", "lost": "\u2717", "pending": "\u00b7"}
+    lab = {"won": "won", "lost": "lost", "pending": "pending"}
+    trs = ""
+    for r in rows:
+        st = r.get("status", "pending")
+        odd = f'{r["odd"]:.2f}' if r.get("odd") else "\u2014"
+        trs += (f'<div class="hrow"><span class="hdate">{r["date"]}</span>'
+                f'<span class="hmatch"><b>{r["home"]} - {r["away"]}</b> '
+                f'<span class="hplay">{r["label"]}</span></span>'
+                f'<span class="hodd">{odd}</span>'
+                f'<span class="hicon {lab[st]}">{icon[st]}</span></div>')
+    return (f'<section class="hist"><h3 class="eyebrow">Storico consigli</h3>'
+            f'{summary}<div class="hist-list">{trs}</div></section>')
+
+
 def render(p):
     cards = "".join(_match_card(m, i + 1) for i, m in enumerate(p["matches"]))
     if not cards:
@@ -161,8 +195,9 @@ def render(p):
                  'gare. Ricontrolla dopo il prossimo aggiornamento.</p>')
     combos = "".join(_combo_card(c, i + 1) for i, c in enumerate(p["combos"]))
     combos_block = f"""
-      <section class="combos"><h3 class="eyebrow">Doppie a bassa varianza \u00b7 obiettivo quota ~1.5</h3>
+      <section class="combos"><h3 class="eyebrow">Multiple \u00b7 massimo 3 \u00b7 gambe da partite diverse</h3>
         <div class="combo-grid">{combos}</div></section>""" if combos else ""
+    history_block = _history_block(p)
     seasons = ", ".join(str(s) for s in p["seasons"])
     n_picks = len(p["matches"])
     return f"""<!DOCTYPE html><html lang="it"><head>
@@ -196,10 +231,12 @@ def render(p):
       statistica, non una promessa: nel breve periodo si vince e si perde.</div>
   </section>
 
+  <h3 class="eyebrow" style="margin-top:44px">Singole \u00b7 il consiglio del sistema</h3>
+  <div class="grid" id="grid">{cards}</div>
+
   {combos_block}
 
-  <h3 class="eyebrow" style="margin-top:44px">Prossime gare \u00b7 il consiglio del sistema</h3>
-  <div class="grid" id="grid">{cards}</div>
+  {history_block}
 
   <footer>Strumento statistico a uso personale tra amici. I consigli nascono dallo storico delle
     partite, non da certezze: nel breve periodo si vince e si perde. 18+. Il gioco pu\u00f2 causare

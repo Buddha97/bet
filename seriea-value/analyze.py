@@ -186,6 +186,49 @@ def tier(s):
 
 
 # ---------- costruzione dati per il sito ---------------------------------
+def grade_pick(h, f):
+    """Confronta una giocata passata col risultato reale -> 'won' o 'lost'."""
+    market, line, side = h["market"], h["line"], h["side"]
+    if market == "corners":
+        hit = f["corners"] > line if side == "over" else f["corners"] < line
+    elif market == "goals":
+        hit = f["goals"] > line if side == "over" else f["goals"] < line
+    elif market == "cards":
+        hit = f["cards"] > line
+    elif market == "btts":
+        hit = f["btts"] == (side == "yes")
+    else:
+        return "pending"
+    return "won" if hit else "lost"
+
+
+def update_history(payload_matches, feats):
+    """Salva i consigli come 'pending' e giudica quelli ormai giocati."""
+    hp = os.path.join(DATA_DIR, "history.json")
+    history = json.load(open(hp)) if os.path.exists(hp) else {}
+
+    # 1) giudico i pending le cui partite sono ora finite
+    for fid, h in history.items():
+        if h.get("status") == "pending" and fid in feats:
+            h["status"] = grade_pick(h, feats[fid])
+
+    # 2) registro/aggiorno i consigli attuali (solo se non gia' giudicati)
+    for m in payload_matches:
+        fid = m["fid"]; t = m["top"]
+        if history.get(fid, {}).get("status") in ("won", "lost"):
+            continue
+        history[fid] = {"home": m["home"], "away": m["away"], "date": m["date"],
+                        "label": t["label"], "market": t["market"], "line": t["line"],
+                        "side": t["side"], "odd": t["odd"], "status": "pending"}
+
+    json.dump(history, open(hp, "w"))
+    # per il sito: ordino per data, piu' recente in cima
+    rows = sorted(history.values(), key=lambda x: x["date"], reverse=True)
+    settled = [r for r in rows if r["status"] in ("won", "lost")]
+    won = sum(1 for r in settled if r["status"] == "won")
+    return {"rows": rows[:40], "won": won, "settled": len(settled)}
+
+
 def build_payload(fixtures, feats, odds):
     home_ids, away_ids = team_match_ids(feats)
     tracked = set(config.TEAMS.values())
@@ -213,40 +256,39 @@ def build_payload(fixtures, feats, odds):
         seen[fx["fixture"]["id"]] = fx
     upcoming = sorted(seen.values(), key=lambda x: x["fixture"]["date"])
 
-    CORNER_MINPROB = getattr(config, "CORNER_HEADLINE_MINPROB", 0.60)
-
     matches = []
     singles_pool = []   # per costruire le doppie tra partite diverse
+    per_match = []
     for fx in upcoming:
         sugg = suggestions_for_fixture(fx, feats, home_ids, away_ids)
+        passing = [s for s in sugg if s["lower"] >= config.MIN_PROB_SINGLE]
         home = fx["teams"]["home"]["name"]; away = fx["teams"]["away"]["name"]
         fid = str(fx["fixture"]["id"])
-
-        # --- CORNER protagonista: la previsione corner piu' informativa ---
-        corner_over = sorted([s for s in sugg if s["market"] == "corners"
-                              and s["side"] == "over"], key=lambda s: s["line"])
-        headline = None
-        # preferisco la linea PIU' ALTA che resti abbastanza probabile (>=60%):
-        for s in reversed(corner_over):
-            if s["lower"] >= CORNER_MINPROB:
-                headline = s
-                break
-        if headline is None and corner_over:               # nessuna >=60%: la piu' solida
-            headline = max(corner_over, key=lambda s: s["lower"])
-        if headline is None:                                # nessun dato corner: miglior giocata
-            headline = sugg[0] if sugg else None
-        if headline is None:
-            continue
-        headline["real_odd"] = find_odd(odds.get(fid, []), headline["market"],
-                                        headline["line"], headline["side"])
-
-        matches.append({"home": home, "away": away, "date": fx["fixture"]["date"][:10],
-                        "top": headline})
-
+        if passing:
+            per_match.append({"home": home, "away": away, "fid": fid,
+                              "date": fx["fixture"]["date"][:10], "options": passing})
         for s in sugg:
             if s["lower"] >= config.MIN_PROB_COMBO_LEG:
                 singles_pool.append({"match": f"{home}-{away}", **s})
                 break
+
+    # MIX: una giocata per partita, la piu' solida, ma diversificando i mercati
+    # (una penalita' spinge verso mercati diversi: corner / gol / cartellini / btts).
+    per_match.sort(key=lambda mm: mm["options"][0]["lower"], reverse=True)
+    market_count = {}
+    for mm in per_match:
+        best, best_score = None, -1.0
+        for s in mm["options"]:
+            score = s["lower"] - 0.05 * market_count.get(s["market"], 0)
+            if score > best_score:
+                best_score, best = score, s
+        if best is None:
+            continue
+        market_count[best["market"]] = market_count.get(best["market"], 0) + 1
+        best["real_odd"] = find_odd(odds.get(mm["fid"], []), best["market"],
+                                    best["line"], best["side"])
+        matches.append({"home": mm["home"], "away": mm["away"], "fid": mm["fid"],
+                        "date": mm["date"], "top": best})
 
     # tutte le gare imminenti, in ordine di DATA (la piu' vicina in cima)
     matches.sort(key=lambda m: m["date"])
@@ -267,11 +309,13 @@ def build_payload(fixtures, feats, odds):
 
     def clean(s):
         real = s.get("real_odd")
-        # quota da mostrare: reale Bet365 se c'e', altrimenti indicativa (dalla prob.)
-        shown_odd = real if real else round(1 / s["p"], 2) if s["p"] else None
+        # quota mostrata: reale Bet365 se c'e'; altrimenti indicativa = 1/prob.prudente
+        # (coerente con la barra e col calcolo del ritorno, per non creare negativi finti)
+        shown_odd = real if real else (round(1 / s["lower"], 2) if s["lower"] else None)
         return {"label": s["label"], "p": round(s["p"], 3),
                 "lower": round(s["lower"], 3), "n": s["n"], "tier": tier(s),
-                "odd": shown_odd, "odd_real": bool(real)}
+                "odd": shown_odd, "odd_real": bool(real),
+                "market": s["market"], "line": s["line"], "side": s["side"]}
 
     for m in matches:
         m["top"] = clean(m["top"])
@@ -301,11 +345,13 @@ def main():
     odds = json.load(open(op)) if os.path.exists(op) else {}
     feats = build_features(fixtures, stats)
     payload = build_payload(fixtures, feats, odds)
+    payload["history"] = update_history(payload["matches"], feats)
     from render import render, render_howto
     open(os.path.join(SITE_DIR, "index.html"), "w").write(render(payload))
     open(os.path.join(SITE_DIR, "come-funziona.html"), "w").write(render_howto(payload))
     print(f"Sito generato: {SITE_DIR}/index.html + come-funziona.html")
     print(f"Partite storiche analizzate: {payload['n_matches_analyzed']}")
+    print(f"Storico: {payload['history']['settled']} giocate concluse.")
     print("Carica il contenuto di site/ sul tuo dominio.")
 
 
