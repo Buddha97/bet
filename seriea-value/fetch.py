@@ -25,6 +25,9 @@ def _key():
         sys.exit("ERRORE: nessuna chiave. Impostala in config.py o nella "
                  "variabile d'ambiente APIFOOTBALL_KEY.")
     return k.strip()
+
+
+def _load_counter():
     today = datetime.date.today().isoformat()
     try:
         c = json.load(open(COUNTER_FILE))
@@ -65,7 +68,7 @@ def api_get(path, params, daily_limit=100):
 
 
 def cmd_teams():
-    """Elenca gli id delle squadre di Serie A per la prima stagione."""
+    """Elenca gli id delle squadre di Serie A per l'ultima stagione."""
     season = config.SEASONS[-1]
     d = api_get("/teams", {"league": config.LEAGUE_ID, "season": season})
     print(f"\nSquadre Serie A {season} (nome  ->  id):\n")
