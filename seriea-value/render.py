@@ -9,7 +9,6 @@ TIER_LABEL = {"alta": "Confidenza alta", "media": "Confidenza media",
 
 
 def _bar(s):
-    """Barra di prudenza: pieno = limite inferiore; tacca = soglia quota 1.5."""
     lower = int(round(s["lower"] * 100))
     p = int(round(s["p"] * 100))
     return f"""
@@ -42,31 +41,22 @@ def _pick(s):
 
 
 def _match_card(m, idx):
-    if not m["top"]:
-        body = '<p class="empty">Nessuna scommessa supera le soglie di prudenza per questa gara.</p>'
-        extra = ""
-    else:
-        body = _pick(m["top"])
-        others = m["singles"][1:]
-        rows = "".join(
-            f'<li><span>{s["label"]}</span>'
-            f'<span class="mono t-{s["tier"]}-txt">{int(round(s["lower"]*100))}%</span>'
-            f'<span class="mono muted">n={s["n"]}</span></li>' for s in others)
-        extra = f"""
-          <details>
-            <summary>Altre giocate solide ({len(others)})</summary>
-            <ul class="others">{rows}</ul>
-          </details>""" if others else ""
+    top = m["top"]
     return f"""
-    <article class="slip">
+    <article class="slip" data-p="{top['lower']}" data-edge="{max(top['edge'],0.0001):.4f}">
       <div class="slip-top">
         <span class="date mono">{m['date']}</span>
         <span class="idx mono">#{idx:02d}</span>
       </div>
       <h2 class="teams"><span>{m['home']}</span><em>vs</em><span>{m['away']}</span></h2>
       <div class="perf"></div>
-      {body}
-      {extra}
+      {_pick(top)}
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
     </article>"""
 
 
@@ -86,20 +76,25 @@ def _combo_card(c, i):
 
 
 def render(p):
-    cards = "".join(_match_card(m, i+1) for i, m in enumerate(p["matches"]))
-    combos = "".join(_combo_card(c, i+1) for i, c in enumerate(p["combos"]))
+    cards = "".join(_match_card(m, i + 1) for i, m in enumerate(p["matches"]))
+    if not cards:
+        cards = ('<p class="empty-big">Nessuna giocata a confidenza alta per le '
+                 'prossime gare. Ricontrolla dopo il prossimo aggiornamento.</p>')
+    combos = "".join(_combo_card(c, i + 1) for i, c in enumerate(p["combos"]))
     combos_block = f"""
       <section class="combos">
         <h3 class="eyebrow">Doppie a bassa varianza · obiettivo quota ~1.5</h3>
         <div class="combo-grid">{combos}</div>
       </section>""" if combos else ""
     seasons = ", ".join(str(s) for s in p["seasons"])
+    n_picks = len(p["matches"])
 
     return f"""<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>Schedina free money</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,7 +115,6 @@ body{{margin:0;background:
 .muted{{color:var(--muted)}}
 .wrap{{max-width:1080px;margin:0 auto;padding:32px 20px 80px}}
 
-/* header */
 header{{display:flex;justify-content:space-between;align-items:flex-end;
   flex-wrap:wrap;gap:16px;border-bottom:1px solid var(--line);padding-bottom:22px}}
 .brand{{font-family:'Barlow Condensed',sans-serif;font-weight:700;
@@ -134,7 +128,26 @@ header{{display:flex;justify-content:space-between;align-items:flex-end;
   letter-spacing:2px;font-size:15px;color:var(--muted);font-weight:600;
   margin:0 0 16px}}
 
-/* grid of slips */
+/* ---- pannello budget (la cassa) ---- */
+.bank{{margin:26px 0 8px;background:linear-gradient(180deg,#1a2230,#141a24);
+  border:1px solid var(--line);border-radius:12px;padding:20px}}
+.bank-grid{{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end}}
+.field label{{display:block;font-family:'Barlow Condensed',sans-serif;
+  text-transform:uppercase;letter-spacing:1.5px;font-size:12px;
+  color:var(--muted);margin-bottom:6px}}
+.field input,.field select{{background:#0c0f14;border:1px solid var(--line);
+  color:var(--paper);font-family:'Space Mono',monospace;font-size:16px;
+  padding:9px 12px;border-radius:8px;width:150px}}
+.field input:focus,.field select:focus{{outline:1px solid var(--amber)}}
+.bank-out{{margin-left:auto;text-align:right;display:flex;gap:26px}}
+.bank-out .k{{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+  letter-spacing:1.5px;font-size:12px;color:var(--muted)}}
+.bank-out .v{{font-family:'Space Mono',monospace;font-size:24px;font-weight:700;
+  margin-top:4px}}
+.bank-out .v.pos{{color:var(--mint)}} .bank-out .v.neg{{color:var(--clay)}}
+.bank-note{{font-size:11.5px;color:var(--muted);margin-top:14px;
+  border-top:1px solid var(--line);padding-top:12px}}
+
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
   gap:18px}}
 .slip{{background:linear-gradient(180deg,var(--panel),var(--panel2));
@@ -161,7 +174,6 @@ header{{display:flex;justify-content:space-between;align-items:flex-end;
 .t-bassa{{background:rgba(193,114,122,.14);color:var(--clay);
   border:1px solid rgba(193,114,122,.35)}}
 
-/* gauge */
 .gauge{{position:relative;height:12px;background:#0c0f14;border-radius:6px;
   border:1px solid var(--line);overflow:hidden}}
 .gauge-fill{{height:100%;border-radius:6px 0 0 6px}}
@@ -178,19 +190,18 @@ header{{display:flex;justify-content:space-between;align-items:flex-end;
   margin-top:12px;color:var(--muted)}}
 .pick-meta .edge{{color:var(--paper)}}
 
-details{{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}}
-summary{{cursor:pointer;font-size:12.5px;color:var(--muted);
-  font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;
-  text-transform:uppercase}}
-.others{{list-style:none;padding:0;margin:10px 0 0}}
-.others li{{display:flex;justify-content:space-between;gap:8px;
-  font-size:12.5px;padding:5px 0;border-bottom:1px dotted var(--line)}}
-.others li span:first-child{{flex:1}}
-.t-alta-txt{{color:var(--mint)}} .t-media-txt{{color:var(--amber)}}
-.t-bassa-txt{{color:var(--clay)}}
-.empty{{color:var(--muted);font-size:13.5px;margin:6px 0 0}}
+/* casella importo, stile schedina */
+.stake-box{{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;
+  display:grid;gap:6px}}
+.stake-row{{display:flex;justify-content:space-between;align-items:baseline}}
+.stake-k{{font-size:11px;text-transform:uppercase;letter-spacing:1px;
+  color:var(--muted)}}
+.stake-v{{font-size:18px;font-weight:700}}
+.stake-v.ret{{color:var(--mint)}}
+.stake-v.ret.neg{{color:var(--clay)}}
 
-/* combos */
+.empty-big{{color:var(--muted);font-size:15px;padding:30px 0}}
+
 .combos{{margin-top:44px}}
 .combo-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
   gap:16px}}
@@ -206,7 +217,7 @@ summary{{cursor:pointer;font-size:12.5px;color:var(--muted);
 .combo-foot{{font-size:11px;color:var(--muted);margin-top:10px}}
 
 footer{{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
-  font-size:11.5px;color:var(--muted);max-width:680px}}
+  font-size:11.5px;color:var(--muted);max-width:720px}}
 </style>
 </head>
 <body>
@@ -221,17 +232,123 @@ footer{{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
     </div>
   </header>
 
+  <section class="bank">
+    <div class="bank-grid">
+      <div class="field">
+        <label>Budget mensile (€)</label>
+        <input id="budget" type="number" min="0" step="10" placeholder="es. 100">
+      </div>
+      <div class="field">
+        <label>Giornate al mese</label>
+        <input id="rounds" type="number" min="1" step="1" value="4">
+      </div>
+      <div class="field">
+        <label>Come puntare</label>
+        <select id="method">
+          <option value="flat">Uguale su tutte</option>
+          <option value="prop">Proporzionale alla forza</option>
+          <option value="pct">Percentuale fissa (5%)</option>
+        </select>
+      </div>
+      <div class="bank-out">
+        <div><div class="k">Puntata / giornata</div>
+          <div class="v" id="tot-stake">—</div></div>
+        <div><div class="k">Guadagno atteso / mese</div>
+          <div class="v" id="tot-month">—</div></div>
+      </div>
+    </div>
+    <div class="bank-note" id="bank-note">
+      Inserisci un budget per vedere quanto puntare su ogni giocata e il ritorno
+      atteso. Le stime usano le probabilità storiche prudenti e una quota 1.5;
+      il risultato reale varia partita per partita.
+    </div>
+  </section>
+
   {combos_block}
 
-  <h3 class="eyebrow" style="margin-top:44px">Prossime gare · miglior giocata singola</h3>
-  <div class="grid">{cards}</div>
+  <h3 class="eyebrow" style="margin-top:44px">Prossime gare · {n_picks} migliori a confidenza alta</h3>
+  <div class="grid" id="grid">{cards}</div>
 
   <footer>
-    Strumento statistico a uso personale tra amici. Le quote "eque" sono l'inverso della
-    probabilità stimata: confrontale sempre con quelle reali del bookmaker prima di puntare —
-    il valore esiste solo quando la quota offerta è più alta di quella equa.
-    18+. Il gioco può causare dipendenza.
+    Strumento statistico a uso personale tra amici. Le quote "eque" sono l'inverso
+    della probabilità stimata: confrontale con quelle reali del bookmaker prima di
+    puntare — il valore esiste solo se la quota offerta è più alta di quella equa.
+    Il "guadagno atteso" è una media statistica, non una promessa: nel breve periodo
+    si vince e si perde. 18+. Il gioco può causare dipendenza.
   </footer>
 </div>
+
+<script>
+(function(){{
+  var TARGET = {p['target_odds']};
+  var budget = document.getElementById('budget');
+  var rounds = document.getElementById('rounds');
+  var method = document.getElementById('method');
+  var slips  = Array.prototype.slice.call(document.querySelectorAll('.slip[data-p]'));
+
+  // memoria nel browser
+  try {{
+    if(localStorage.getItem('sfm_budget')) budget.value = localStorage.getItem('sfm_budget');
+    if(localStorage.getItem('sfm_rounds')) rounds.value = localStorage.getItem('sfm_rounds');
+    if(localStorage.getItem('sfm_method')) method.value = localStorage.getItem('sfm_method');
+  }} catch(e){{}}
+
+  function euro(x){{ return '€' + (Math.round(x*100)/100).toFixed(2); }}
+
+  function recompute(){{
+    var B = parseFloat(budget.value) || 0;
+    var R = Math.max(1, parseInt(rounds.value) || 1);
+    var perRound = B / R;               // budget da giocare in una giornata
+    var m = method.value;
+    var N = slips.length;
+
+    // pesi per la ripartizione
+    var weights = slips.map(function(el){{
+      if(m === 'prop') return Math.max(0.0001, parseFloat(el.dataset.edge));
+      return 1; // flat
+    }});
+    var wsum = weights.reduce(function(a,b){{return a+b;}}, 0) || 1;
+
+    var totStake = 0, totRet = 0;
+    slips.forEach(function(el, i){{
+      var pi = parseFloat(el.dataset.p);
+      var stake;
+      if(m === 'pct') stake = perRound * 0.05;          // 5% fisso a giocata
+      else stake = perRound * (weights[i] / wsum);       // flat o proporzionale
+      var ret = stake * (TARGET * pi - 1);               // ritorno atteso (media)
+      totStake += stake; totRet += ret;
+      el.querySelector('[data-stake]').textContent = B ? euro(stake) : '—';
+      var rEl = el.querySelector('[data-return]');
+      rEl.textContent = B ? (ret>=0?'+':'') + euro(ret) : '—';
+      rEl.classList.toggle('neg', ret < 0);
+    }});
+
+    var sEl = document.getElementById('tot-stake');
+    var mEl = document.getElementById('tot-month');
+    sEl.textContent = B ? euro(totStake) : '—';
+    var monthly = totRet * R;
+    mEl.textContent = B ? (monthly>=0?'+':'') + euro(monthly) : '—';
+    mEl.className = 'v ' + (B ? (monthly>=0?'pos':'neg') : '');
+
+    var note = document.getElementById('bank-note');
+    if(m === 'pct' && B){{
+      note.textContent = 'Percentuale fissa: 5% del budget-giornata su ogni giocata'
+        + ' (con ' + N + ' giocate il totale può non coincidere col budget).';
+    }}
+
+    try {{
+      localStorage.setItem('sfm_budget', budget.value);
+      localStorage.setItem('sfm_rounds', rounds.value);
+      localStorage.setItem('sfm_method', method.value);
+    }} catch(e){{}}
+  }}
+
+  [budget, rounds, method].forEach(function(el){{
+    el.addEventListener('input', recompute);
+    el.addEventListener('change', recompute);
+  }});
+  recompute();
+}})();
+</script>
 </body>
 </html>"""

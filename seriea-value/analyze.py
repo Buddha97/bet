@@ -217,11 +217,17 @@ def build_payload(fixtures, feats):
     for c in combos:
         c["legs"] = [{"match": l["match"], **clean(l)} for l in c["legs"]]
 
+    # Solo giocate a CONFIDENZA ALTA, le 10 piu' solide (ordinate per prob.).
+    shown = [m for m in matches if m["top"] and m["top"]["tier"] == "alta"]
+    shown.sort(key=lambda m: m["top"]["lower"], reverse=True)
+    shown = shown[:10]
+
     return {
         "generated": datetime.datetime.now(_TZ).strftime("%d/%m/%Y %H:%M"),
         "n_matches_analyzed": len(feats),
         "seasons": config.SEASONS,
-        "matches": matches,
+        "target_odds": 1.5,
+        "matches": shown,
         "combos": combos[:3],
     }
 
