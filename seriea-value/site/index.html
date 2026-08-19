@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Schedina free money</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
+<!DOCTYPE html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Schedina free money</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
 :root{
   --bg:#0E1116; --panel:#161A21; --panel2:#1B212B; --line:#2A3340;
   --paper:#E9E6DD; --muted:#828C9B;
@@ -16,126 +9,90 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:
-  radial-gradient(1200px 600px at 70% -10%, #182131 0%, transparent 60%),
-  var(--bg);
+  radial-gradient(1200px 600px at 70% -10%, #182131 0%, transparent 60%), var(--bg);
   color:var(--paper);font-family:Inter,system-ui,sans-serif;
   -webkit-font-smoothing:antialiased;line-height:1.5}
 .mono{font-family:'Space Mono',monospace}
 .muted{color:var(--muted)}
+a{color:var(--amber);text-decoration:none}
 .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
-
 header{display:flex;justify-content:space-between;align-items:flex-end;
   flex-wrap:wrap;gap:16px;border-bottom:1px solid var(--line);padding-bottom:22px}
 .brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;
-  font-size:clamp(34px,6vw,58px);letter-spacing:.5px;line-height:.9;
-  text-transform:uppercase}
+  font-size:clamp(34px,6vw,58px);letter-spacing:.5px;line-height:.9;text-transform:uppercase}
 .brand em{color:var(--amber);font-style:normal}
 .meta-line{text-align:right;font-size:13px}
 .meta-line .mono{color:var(--paper)}
-
+.nav{margin:16px 0 0;font-family:'Barlow Condensed',sans-serif;letter-spacing:1.5px;
+  text-transform:uppercase;font-size:14px}
 .eyebrow{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
-  letter-spacing:2px;font-size:15px;color:var(--muted);font-weight:600;
-  margin:0 0 16px}
+  letter-spacing:2px;font-size:15px;color:var(--muted);font-weight:600;margin:0 0 16px}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
+  font-size:11.5px;color:var(--muted);max-width:720px}
 
-/* ---- pannello budget (la cassa) ---- */
 .bank{margin:26px 0 8px;background:linear-gradient(180deg,#1a2230,#141a24);
   border:1px solid var(--line);border-radius:12px;padding:20px}
 .bank-grid{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end}
-.field label{display:block;font-family:'Barlow Condensed',sans-serif;
-  text-transform:uppercase;letter-spacing:1.5px;font-size:12px;
-  color:var(--muted);margin-bottom:6px}
-.field input,.field select{background:#0c0f14;border:1px solid var(--line);
-  color:var(--paper);font-family:'Space Mono',monospace;font-size:16px;
-  padding:9px 12px;border-radius:8px;width:150px}
-.field input:focus,.field select:focus{outline:1px solid var(--amber)}
+.field label{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+  letter-spacing:1.5px;font-size:12px;color:var(--muted);margin-bottom:6px}
+.field input{background:#0c0f14;border:1px solid var(--line);color:var(--paper);
+  font-family:'Space Mono',monospace;font-size:16px;padding:9px 12px;border-radius:8px;width:150px}
+.field input:focus{outline:1px solid var(--amber)}
 .bank-out{margin-left:auto;text-align:right;display:flex;gap:26px}
 .bank-out .k{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
   letter-spacing:1.5px;font-size:12px;color:var(--muted)}
-.bank-out .v{font-family:'Space Mono',monospace;font-size:24px;font-weight:700;
-  margin-top:4px}
+.bank-out .v{font-family:'Space Mono',monospace;font-size:24px;font-weight:700;margin-top:4px}
 .bank-out .v.pos{color:var(--mint)} .bank-out .v.neg{color:var(--clay)}
 .bank-note{font-size:11.5px;color:var(--muted);margin-top:14px;
   border-top:1px solid var(--line);padding-top:12px}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:18px}
-.slip{background:linear-gradient(180deg,var(--panel),var(--panel2));
-  border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;
-  position:relative;overflow:hidden}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.slip{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+  border-radius:10px;padding:18px 18px 16px;position:relative;overflow:hidden}
 .slip-top{display:flex;justify-content:space-between;font-size:12px}
-.slip-top .date{color:var(--amber)}
-.slip-top .idx{color:var(--muted)}
-.teams{font-family:'Barlow Condensed',sans-serif;font-weight:600;
-  font-size:26px;line-height:1;margin:8px 0 0;text-transform:uppercase;
-  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+.slip-top .date{color:var(--amber)} .slip-top .idx{color:var(--muted)}
+.teams{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;line-height:1;
+  margin:8px 0 0;text-transform:uppercase;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
 .teams em{font-style:normal;color:var(--muted);font-size:15px}
 .perf{height:1px;margin:14px -18px;border-top:1px dashed var(--line)}
-
-.pick-head{display:flex;justify-content:space-between;align-items:center;
-  gap:10px;margin-bottom:12px}
+.pick-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
 .pick-label{font-weight:600;font-size:15.5px}
-.chip{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;
-  padding:3px 8px;border-radius:20px;white-space:nowrap;font-weight:600}
-.t-alta{background:rgba(125,211,168,.14);color:var(--mint);
-  border:1px solid rgba(125,211,168,.35)}
-.t-media{background:rgba(224,184,76,.14);color:var(--amber);
-  border:1px solid rgba(224,184,76,.35)}
-.t-bassa{background:rgba(193,114,122,.14);color:var(--clay);
-  border:1px solid rgba(193,114,122,.35)}
-
-.gauge{position:relative;height:12px;background:#0c0f14;border-radius:6px;
-  border:1px solid var(--line);overflow:hidden}
+.chip{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;padding:3px 8px;
+  border-radius:20px;white-space:nowrap;font-weight:600}
+.t-alta{background:rgba(125,211,168,.14);color:var(--mint);border:1px solid rgba(125,211,168,.35)}
+.t-media{background:rgba(224,184,76,.14);color:var(--amber);border:1px solid rgba(224,184,76,.35)}
+.t-bassa{background:rgba(193,114,122,.14);color:var(--clay);border:1px solid rgba(193,114,122,.35)}
+.gauge{position:relative;height:12px;background:#0c0f14;border-radius:6px;border:1px solid var(--line);overflow:hidden}
 .gauge-fill{height:100%;border-radius:6px 0 0 6px}
-.gauge-fill.t-alta{background:var(--mint)}
-.gauge-fill.t-media{background:var(--amber)}
+.gauge-fill.t-alta{background:var(--mint)} .gauge-fill.t-media{background:var(--amber)}
 .gauge-fill.t-bassa{background:var(--clay)}
-.gauge-mark{position:absolute;top:-3px;width:2px;height:18px;
-  background:var(--paper);opacity:.75}
-.gauge-legend{display:flex;justify-content:space-between;font-size:11px;
-  margin-top:6px}
+.gauge-mark{position:absolute;top:-3px;width:2px;height:18px;background:var(--paper);opacity:.75}
+.gauge-legend{display:flex;justify-content:space-between;font-size:11px;margin-top:6px}
 .gauge-legend .mono{font-weight:700}
-
-.pick-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;
-  margin-top:12px;color:var(--muted)}
-.pick-meta .edge{color:var(--paper)}
-
-/* casella importo, stile schedina */
-.stake-box{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;
-  display:grid;gap:6px}
+.pick-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;margin-top:12px;color:var(--muted)}
+.odd-real{color:var(--paper)} .val-yes{color:var(--mint);font-weight:700}
+.val-no{color:var(--clay);font-weight:700}
+.stake-box{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;display:grid;gap:6px}
 .stake-row{display:flex;justify-content:space-between;align-items:baseline}
-.stake-k{font-size:11px;text-transform:uppercase;letter-spacing:1px;
-  color:var(--muted)}
+.stake-k{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
 .stake-v{font-size:18px;font-weight:700}
-.stake-v.ret{color:var(--mint)}
-.stake-v.ret.neg{color:var(--clay)}
-
+.stake-v.ret{color:var(--mint)} .stake-v.ret.neg{color:var(--clay)}
 .empty-big{color:var(--muted);font-size:15px;padding:30px 0}
-
 .combos{margin-top:44px}
-.combo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:16px}
-.combo{background:var(--panel);border:1px solid var(--line);border-radius:10px;
-  padding:16px;border-top:3px solid var(--amber)}
-.combo-top{display:flex;justify-content:space-between;margin-bottom:10px;
-  font-size:12px}
+.combo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.combo{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;border-top:3px solid var(--amber)}
+.combo-top{display:flex;justify-content:space-between;margin-bottom:10px;font-size:12px}
 .combo-odds{color:var(--amber);font-weight:700}
-.leg{display:grid;grid-template-columns:1fr auto;gap:4px 10px;
-  padding:8px 0;border-bottom:1px dotted var(--line)}
-.leg-match{grid-column:1/-1;font-size:11px}
-.leg-label{font-size:13.5px}
+.leg{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:8px 0;border-bottom:1px dotted var(--line)}
+.leg-match{grid-column:1/-1;font-size:11px} .leg-label{font-size:13.5px}
 .combo-foot{font-size:11px;color:var(--muted);margin-top:10px}
-
-footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
-  font-size:11.5px;color:var(--muted);max-width:720px}
-</style>
-</head>
-<body>
-<div class="wrap">
+</style></head><body><div class="wrap">
   <header>
-    <div class="brand">Schedina<br><em>free money</em></div>
+    <div>
+      <div class="brand">Schedina<br><em>free money</em></div>
+      <div class="nav"><a href="come-funziona.html">Come funziona &rarr;</a></div>
+    </div>
     <div class="meta-line">
-      <div class="muted">aggiornato</div>
-      <div class="mono">19/08/2026 18:31</div>
+      <div class="muted">aggiornato</div><div class="mono">19/08/2026 19:33</div>
       <div class="muted" style="margin-top:8px">base storica</div>
       <div class="mono">558 gare · 2024, 2025, 2026</div>
     </div>
@@ -143,382 +100,275 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
 
   <section class="bank">
     <div class="bank-grid">
-      <div class="field">
-        <label>Budget mensile (€)</label>
-        <input id="budget" type="number" min="0" step="10" placeholder="es. 100">
-      </div>
-      <div class="field">
-        <label>Giornate al mese</label>
-        <input id="rounds" type="number" min="1" step="1" value="4">
-      </div>
-      <div class="field">
-        <label>Come puntare</label>
-        <select id="method">
-          <option value="flat">Uguale su tutte</option>
-          <option value="prop">Proporzionale alla forza</option>
-          <option value="pct">Percentuale fissa (5%)</option>
-        </select>
-      </div>
+      <div class="field"><label>Budget mensile (€)</label>
+        <input id="budget" type="number" min="0" step="10" placeholder="es. 100"></div>
+      <input id="rounds" type="hidden" value="4">
       <div class="bank-out">
-        <div><div class="k">Puntata / giornata</div>
-          <div class="v" id="tot-stake">—</div></div>
-        <div><div class="k">Guadagno atteso / mese</div>
-          <div class="v" id="tot-month">—</div></div>
+        <div><div class="k">Puntata / giornata</div><div class="v" id="tot-stake">—</div></div>
+        <div><div class="k">Guadagno atteso / mese</div><div class="v" id="tot-month">—</div></div>
       </div>
     </div>
-    <div class="bank-note" id="bank-note">
-      Inserisci un budget per vedere quanto puntare su ogni giocata e il ritorno
-      atteso. Le stime usano le probabilità storiche prudenti e una quota 1.5;
-      il risultato reale varia partita per partita.
-    </div>
+    <div class="bank-note">Le puntate distribuiscono il budget di una giornata sulle giocate mostrate.
+      Il ritorno atteso usa la probabilità storica prudente e, dove disponibile, la quota reale
+      Bet365 (altrimenti la quota equa). È una media statistica, non una promessa.</div>
   </section>
 
   
 
-  <h3 class="eyebrow" style="margin-top:44px">Prossime gare · 10 migliori a confidenza alta</h3>
+  <h3 class="eyebrow" style="margin-top:44px">Prossime gare · 10 giocate, la più vicina in cima</h3>
   <div class="grid" id="grid">
-    <article class="slip" data-p="0.801" data-edge="0.1340">
-      <div class="slip-top">
-        <span class="date mono">2026-11-08</span>
-        <span class="idx mono">#01</span>
-      </div>
-      <h2 class="teams"><span>Inter</span><em>vs</em><span>Como</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
-        <div class="gauge-fill t-alta" style="width:80%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">80%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 54 gare</span>
-          <span>quota equa ~1.15</span>
-          <span class="edge">margine +13.4 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.801" data-edge="0.1350">
-      <div class="slip-top">
-        <span class="date mono">2027-02-14</span>
-        <span class="idx mono">#02</span>
-      </div>
-      <h2 class="teams"><span>Inter</span><em>vs</em><span>AC Milan</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 80% (grezza 86%)">
-        <div class="gauge-fill t-alta" style="width:80%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">80%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 84 gare</span>
-          <span>quota equa ~1.17</span>
-          <span class="edge">margine +13.5 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.801" data-edge="0.1340">
-      <div class="slip-top">
-        <span class="date mono">2027-02-28</span>
-        <span class="idx mono">#03</span>
-      </div>
-      <h2 class="teams"><span>Como</span><em>vs</em><span>AC Milan</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
-        <div class="gauge-fill t-alta" style="width:80%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">80%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 54 gare</span>
-          <span>quota equa ~1.15</span>
-          <span class="edge">margine +13.4 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.797" data-edge="0.1310">
-      <div class="slip-top">
-        <span class="date mono">2026-12-13</span>
-        <span class="idx mono">#04</span>
-      </div>
-      <h2 class="teams"><span>Inter</span><em>vs</em><span>Torino</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 80% (grezza 86%)">
-        <div class="gauge-fill t-alta" style="width:80%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">80%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 59 gare</span>
-          <span>quota equa ~1.16</span>
-          <span class="edge">margine +13.1 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.797" data-edge="0.1310">
-      <div class="slip-top">
-        <span class="date mono">2027-01-24</span>
-        <span class="idx mono">#05</span>
-      </div>
-      <h2 class="teams"><span>Frosinone</span><em>vs</em><span>AC Milan</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
-        <div class="gauge-fill t-alta" style="width:80%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">80%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 47 gare</span>
-          <span>quota equa ~1.15</span>
-          <span class="edge">margine +13.1 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.797" data-edge="0.1310">
-      <div class="slip-top">
-        <span class="date mono">2027-03-21</span>
-        <span class="idx mono">#06</span>
-      </div>
-      <h2 class="teams"><span>Inter</span><em>vs</em><span>Frosinone</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
-        <div class="gauge-fill t-alta" style="width:80%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">80%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 47 gare</span>
-          <span>quota equa ~1.15</span>
-          <span class="edge">margine +13.1 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.797" data-edge="0.1310">
-      <div class="slip-top">
-        <span class="date mono">2027-04-25</span>
-        <span class="idx mono">#07</span>
-      </div>
-      <h2 class="teams"><span>Inter</span><em>vs</em><span>Bologna</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 80% (grezza 86%)">
-        <div class="gauge-fill t-alta" style="width:80%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">80%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 59 gare</span>
-          <span>quota equa ~1.16</span>
-          <span class="edge">margine +13.1 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.791" data-edge="0.1240">
-      <div class="slip-top">
-        <span class="date mono">2027-02-28</span>
-        <span class="idx mono">#08</span>
-      </div>
-      <h2 class="teams"><span>Inter</span><em>vs</em><span>Atalanta</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 79% (grezza 85%)">
-        <div class="gauge-fill t-alta" style="width:79%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">79%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 85 gare</span>
-          <span>quota equa ~1.18</span>
-          <span class="edge">margine +12.4 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.788" data-edge="0.1220">
-      <div class="slip-top">
-        <span class="date mono">2026-12-13</span>
-        <span class="idx mono">#09</span>
-      </div>
-      <h2 class="teams"><span>Napoli</span><em>vs</em><span>AC Milan</span></h2>
-      <div class="perf"></div>
-      
-      <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
-        
-      <div class="gauge" title="Prob. prudente 79% (grezza 84%)">
-        <div class="gauge-fill t-alta" style="width:79%"></div>
-        <div class="gauge-mark" style="left:66.7%"></div>
-      </div>
-      <div class="gauge-legend">
-        <span class="mono">79%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
-      </div>
-        <div class="pick-meta mono">
-          <span>campione 84 gare</span>
-          <span>quota equa ~1.18</span>
-          <span class="edge">margine +12.2 pt</span>
-        </div>
-      </div>
-      <div class="stake-box">
-        <div class="stake-row"><span class="stake-k mono">punta</span>
-          <span class="stake-v mono" data-stake>—</span></div>
-        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
-          <span class="stake-v mono ret" data-return>—</span></div>
-      </div>
-    </article>
-    <article class="slip" data-p="0.783" data-edge="0.1170">
-      <div class="slip-top">
-        <span class="date mono">2026-08-22</span>
-        <span class="idx mono">#10</span>
-      </div>
+    <article class="slip" data-p="0.783" data-odd="1.2">
+      <div class="slip-top"><span class="date mono">2026-08-22</span>
+        <span class="idx mono">#01</span></div>
       <h2 class="teams"><span>Inter</span><em>vs</em><span>Monza</span></h2>
       <div class="perf"></div>
       
       <div class="pick">
-        <div class="pick-head">
-          <span class="pick-label">Gol totali OVER 1.5</span>
-          <span class="chip t-alta">Confidenza alta</span>
-        </div>
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
         
       <div class="gauge" title="Prob. prudente 78% (grezza 86%)">
         <div class="gauge-fill t-alta" style="width:78%"></div>
         <div class="gauge-mark" style="left:66.7%"></div>
       </div>
-      <div class="gauge-legend">
-        <span class="mono">78%</span>
-        <span class="muted">soglia 1.5 = 67%</span>
+      <div class="gauge-legend"><span class="mono">78%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 55 gare</span>
+          <span class="odd-real">Bet365 1.20</span><span class="val-no">no valore</span></div>
       </div>
-        <div class="pick-meta mono">
-          <span>campione 55 gare</span>
-          <span>quota equa ~1.17</span>
-          <span class="edge">margine +11.7 pt</span>
-        </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.78" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2026-08-30</span>
+        <span class="idx mono">#02</span></div>
+      <h2 class="teams"><span>Napoli</span><em>vs</em><span>Como</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 78% (grezza 85%)">
+        <div class="gauge-fill t-alta" style="width:78%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">78%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 54 gare</span>
+          <span>quota equa ~1.17</span><span class="edge">margine +11.3 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.801" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2026-11-08</span>
+        <span class="idx mono">#03</span></div>
+      <h2 class="teams"><span>Inter</span><em>vs</em><span>Como</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
+        <div class="gauge-fill t-alta" style="width:80%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">80%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 54 gare</span>
+          <span>quota equa ~1.15</span><span class="edge">margine +13.4 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.782" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2026-11-29</span>
+        <span class="idx mono">#04</span></div>
+      <h2 class="teams"><span>Torino</span><em>vs</em><span>Lazio</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali UNDER 3.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 78% (grezza 85%)">
+        <div class="gauge-fill t-alta" style="width:78%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">78%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 60 gare</span>
+          <span>quota equa ~1.18</span><span class="edge">margine +11.5 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.797" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2026-12-13</span>
+        <span class="idx mono">#05</span></div>
+      <h2 class="teams"><span>Inter</span><em>vs</em><span>Torino</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 80% (grezza 86%)">
+        <div class="gauge-fill t-alta" style="width:80%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">80%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 59 gare</span>
+          <span>quota equa ~1.16</span><span class="edge">margine +13.1 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.801" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2027-02-14</span>
+        <span class="idx mono">#06</span></div>
+      <h2 class="teams"><span>Inter</span><em>vs</em><span>AC Milan</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 80% (grezza 86%)">
+        <div class="gauge-fill t-alta" style="width:80%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">80%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 84 gare</span>
+          <span>quota equa ~1.17</span><span class="edge">margine +13.5 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.801" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2027-02-28</span>
+        <span class="idx mono">#07</span></div>
+      <h2 class="teams"><span>Como</span><em>vs</em><span>AC Milan</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
+        <div class="gauge-fill t-alta" style="width:80%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">80%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 54 gare</span>
+          <span>quota equa ~1.15</span><span class="edge">margine +13.4 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.791" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2027-02-28</span>
+        <span class="idx mono">#08</span></div>
+      <h2 class="teams"><span>Inter</span><em>vs</em><span>Atalanta</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 79% (grezza 85%)">
+        <div class="gauge-fill t-alta" style="width:79%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">79%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 85 gare</span>
+          <span>quota equa ~1.18</span><span class="edge">margine +12.4 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.797" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2027-03-21</span>
+        <span class="idx mono">#09</span></div>
+      <h2 class="teams"><span>Inter</span><em>vs</em><span>Frosinone</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 80% (grezza 87%)">
+        <div class="gauge-fill t-alta" style="width:80%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">80%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 47 gare</span>
+          <span>quota equa ~1.15</span><span class="edge">margine +13.1 pt</span></div>
+      </div>
+      <div class="stake-box">
+        <div class="stake-row"><span class="stake-k mono">punta</span>
+          <span class="stake-v mono" data-stake>—</span></div>
+        <div class="stake-row"><span class="stake-k mono">ritorno atteso</span>
+          <span class="stake-v mono ret" data-return>—</span></div>
+      </div>
+    </article>
+    <article class="slip" data-p="0.797" data-odd="1.5">
+      <div class="slip-top"><span class="date mono">2027-04-25</span>
+        <span class="idx mono">#10</span></div>
+      <h2 class="teams"><span>Inter</span><em>vs</em><span>Bologna</span></h2>
+      <div class="perf"></div>
+      
+      <div class="pick">
+        <div class="pick-head"><span class="pick-label">Gol totali OVER 1.5</span>
+          <span class="chip t-alta">Confidenza alta</span></div>
+        
+      <div class="gauge" title="Prob. prudente 80% (grezza 86%)">
+        <div class="gauge-fill t-alta" style="width:80%"></div>
+        <div class="gauge-mark" style="left:66.7%"></div>
+      </div>
+      <div class="gauge-legend"><span class="mono">80%</span>
+        <span class="muted">soglia 1.5 = 67%</span></div>
+        <div class="pick-meta mono"><span>campione 59 gare</span>
+          <span>quota equa ~1.16</span><span class="edge">margine +13.1 pt</span></div>
       </div>
       <div class="stake-box">
         <div class="stake-row"><span class="stake-k mono">punta</span>
@@ -528,86 +378,41 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
       </div>
     </article></div>
 
-  <footer>
-    Strumento statistico a uso personale tra amici. Le quote "eque" sono l'inverso
-    della probabilità stimata: confrontale con quelle reali del bookmaker prima di
-    puntare — il valore esiste solo se la quota offerta è più alta di quella equa.
-    Il "guadagno atteso" è una media statistica, non una promessa: nel breve periodo
-    si vince e si perde. 18+. Il gioco può causare dipendenza.
-  </footer>
+  <footer>Strumento statistico a uso personale tra amici. Il "valore" c'è solo quando la quota
+    Bet365 è più alta della quota equa. Nel breve periodo si vince e si perde. 18+. Il gioco può
+    causare dipendenza. <a href="come-funziona.html">Come funziona</a></footer>
 </div>
-
 <script>
 (function(){
-  var TARGET = 1.5;
-  var budget = document.getElementById('budget');
-  var rounds = document.getElementById('rounds');
-  var method = document.getElementById('method');
-  var slips  = Array.prototype.slice.call(document.querySelectorAll('.slip[data-p]'));
-
-  // memoria nel browser
-  try {
-    if(localStorage.getItem('sfm_budget')) budget.value = localStorage.getItem('sfm_budget');
-    if(localStorage.getItem('sfm_rounds')) rounds.value = localStorage.getItem('sfm_rounds');
-    if(localStorage.getItem('sfm_method')) method.value = localStorage.getItem('sfm_method');
-  } catch(e){}
-
-  function euro(x){ return '€' + (Math.round(x*100)/100).toFixed(2); }
-
+  var budget=document.getElementById('budget');
+  var rounds=document.getElementById('rounds');
+  var slips=Array.prototype.slice.call(document.querySelectorAll('.slip[data-p]'));
+  try{ if(localStorage.getItem('sfm_budget')) budget.value=localStorage.getItem('sfm_budget'); }catch(e){}
+  function euro(x){ return '€'+(Math.round(x*100)/100).toFixed(2); }
   function recompute(){
-    var B = parseFloat(budget.value) || 0;
-    var R = Math.max(1, parseInt(rounds.value) || 1);
-    var perRound = B / R;               // budget da giocare in una giornata
-    var m = method.value;
-    var N = slips.length;
-
-    // pesi per la ripartizione
-    var weights = slips.map(function(el){
-      if(m === 'prop') return Math.max(0.0001, parseFloat(el.dataset.edge));
-      return 1; // flat
+    var B=parseFloat(budget.value)||0;
+    var R=Math.max(1,parseInt(rounds.value)||1);
+    var perRound=B/R, N=slips.length, totStake=0, totRet=0;
+    slips.forEach(function(el){
+      var pi=parseFloat(el.dataset.p);
+      var odd=parseFloat(el.dataset.odd)||1.5;
+      var stake=perRound/N;
+      var ret=stake*(odd*pi-1);
+      totStake+=stake; totRet+=ret;
+      el.querySelector('[data-stake]').textContent=B?euro(stake):'—';
+      var rEl=el.querySelector('[data-return]');
+      rEl.textContent=B?((ret>=0?'+':'')+euro(ret)):'—';
+      rEl.classList.toggle('neg',ret<0);
     });
-    var wsum = weights.reduce(function(a,b){return a+b;}, 0) || 1;
-
-    var totStake = 0, totRet = 0;
-    slips.forEach(function(el, i){
-      var pi = parseFloat(el.dataset.p);
-      var stake;
-      if(m === 'pct') stake = perRound * 0.05;          // 5% fisso a giocata
-      else stake = perRound * (weights[i] / wsum);       // flat o proporzionale
-      var ret = stake * (TARGET * pi - 1);               // ritorno atteso (media)
-      totStake += stake; totRet += ret;
-      el.querySelector('[data-stake]').textContent = B ? euro(stake) : '—';
-      var rEl = el.querySelector('[data-return]');
-      rEl.textContent = B ? (ret>=0?'+':'') + euro(ret) : '—';
-      rEl.classList.toggle('neg', ret < 0);
-    });
-
-    var sEl = document.getElementById('tot-stake');
-    var mEl = document.getElementById('tot-month');
-    sEl.textContent = B ? euro(totStake) : '—';
-    var monthly = totRet * R;
-    mEl.textContent = B ? (monthly>=0?'+':'') + euro(monthly) : '—';
-    mEl.className = 'v ' + (B ? (monthly>=0?'pos':'neg') : '');
-
-    var note = document.getElementById('bank-note');
-    if(m === 'pct' && B){
-      note.textContent = 'Percentuale fissa: 5% del budget-giornata su ogni giocata'
-        + ' (con ' + N + ' giocate il totale può non coincidere col budget).';
-    }
-
-    try {
-      localStorage.setItem('sfm_budget', budget.value);
-      localStorage.setItem('sfm_rounds', rounds.value);
-      localStorage.setItem('sfm_method', method.value);
-    } catch(e){}
+    var sEl=document.getElementById('tot-stake'), mEl=document.getElementById('tot-month');
+    sEl.textContent=B?euro(totStake):'—';
+    var monthly=totRet*R;
+    mEl.textContent=B?((monthly>=0?'+':'')+euro(monthly)):'—';
+    mEl.className='v '+(B?(monthly>=0?'pos':'neg'):'');
+    try{ localStorage.setItem('sfm_budget',budget.value); }catch(e){}
   }
-
-  [budget, rounds, method].forEach(function(el){
-    el.addEventListener('input', recompute);
-    el.addEventListener('change', recompute);
-  });
+  budget.addEventListener('input',recompute);
   recompute();
 })();
 </script>
-</body>
-</html>
+</body></html>
