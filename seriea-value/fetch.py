@@ -24,10 +24,7 @@ def _key():
     if not k or k == "INCOLLA_QUI_LA_TUA_CHIAVE":
         sys.exit("ERRORE: nessuna chiave. Impostala in config.py o nella "
                  "variabile d'ambiente APIFOOTBALL_KEY.")
-           return k.strip()
-
-
-def _load_counter():
+    return k.strip()
     today = datetime.date.today().isoformat()
     try:
         c = json.load(open(COUNTER_FILE))
