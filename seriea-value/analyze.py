@@ -219,6 +219,9 @@ def build_payload(fixtures, feats, odds):
         for leg in combo_legs[:1]:
             singles_pool.append({"match": f"{home}-{away}", **leg})
 
+    # SELEZIONE VARIA: 1 giocata per partita, evitando di ripetere sempre lo
+    # stesso mercato. Partite piu' solide scelgono per prime; una penalita'
+    # spinge le altre verso mercati diversi (corner / gol / cartellini / btts).
     # tengo solo le partite che hanno almeno una giocata sopra soglia
     per_match = [mm for mm in per_match if mm["options"]]
     per_match.sort(key=lambda mm: mm["options"][0]["lower"], reverse=True)
@@ -230,6 +233,8 @@ def build_payload(fixtures, feats, odds):
             score = s["lower"] - 0.04 * market_count.get(s["market"], 0)
             if score > best_score:
                 best_score, best = score, s
+        if best is None:
+            continue
         market_count[best["market"]] = market_count.get(best["market"], 0) + 1
         # aggancio la quota reale Bet365 della giocata scelta
         best["real_odd"] = find_odd(odds.get(mm["fid"], []),
