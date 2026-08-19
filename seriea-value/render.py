@@ -80,14 +80,13 @@ SITE_CSS = BASE_CSS + """
 .gauge-legend{display:flex;justify-content:space-between;font-size:11px;margin-top:6px}
 .gauge-legend .mono{font-weight:700}
 .pick-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;margin-top:12px;color:var(--muted)}
-.odd-real{color:var(--paper)} .val-yes{color:var(--mint);font-weight:700}
-.val-no{color:var(--clay);font-weight:700}
 .stake-box{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;display:grid;gap:6px}
 .stake-row{display:flex;justify-content:space-between;align-items:baseline}
 .stake-k{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
 .stake-v{font-size:18px;font-weight:700}
 .stake-v.ret{color:var(--mint)} .stake-v.ret.neg{color:var(--clay)}
 .empty-big{color:var(--muted);font-size:15px;padding:30px 0}
+.t-alta-txt{color:var(--mint)} .t-media-txt{color:var(--amber)} .t-bassa-txt{color:var(--clay)}
 .combos{margin-top:44px}
 .combo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .combo{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;border-top:3px solid var(--amber)}
@@ -111,27 +110,20 @@ def _bar(s):
 
 
 def _pick(s):
-    if s.get("real_odd"):
-        odd_line = f'<span class="odd-real">Bet365 {s["real_odd"]:.2f}</span>'
-        val = ('<span class="val-yes">valore \u2713</span>' if s["value"]
-               else '<span class="val-no">no valore</span>')
-    else:
-        odd_line = f'<span>quota equa ~{s["fair_odds"]}</span>'
-        edge = s["edge"] * 100
-        val = f'<span class="edge">margine {"+" if edge>=0 else ""}{edge:.1f} pt</span>'
+    odd_txt = f'{s["odd"]:.2f}' if s.get("odd") else "\u2014"
     return f"""
       <div class="pick">
-        <div class="pick-head"><span class="pick-label">{s['label']}</span>
+        <div class="pick-head"><span class="pick-label">Gioca {s['label']}</span>
           <span class="chip t-{s['tier']}">{TIER_LABEL[s['tier']]}</span></div>
         {_bar(s)}
         <div class="pick-meta mono"><span>campione {s['n']} gare</span>
-          {odd_line}{val}</div>
+          <span class="quota">quota {odd_txt}</span></div>
       </div>"""
 
 
 def _match_card(m, idx):
     top = m["top"]
-    odd = top["real_odd"] if top.get("real_odd") else 1.5
+    odd = top["odd"] if top.get("odd") else 1.5
     return f"""
     <article class="slip" data-p="{top['lower']}" data-odd="{odd}">
       <div class="slip-top"><span class="date mono">{m['date']}</span>
@@ -199,19 +191,19 @@ def render(p):
         <div><div class="k">Guadagno atteso / mese</div><div class="v" id="tot-month">\u2014</div></div>
       </div>
     </div>
-    <div class="bank-note">Le puntate distribuiscono il budget di una giornata sulle giocate mostrate.
-      Il ritorno atteso usa la probabilit\u00e0 storica prudente e, dove disponibile, la quota reale
-      Bet365 (altrimenti la quota equa). \u00c8 una media statistica, non una promessa.</div>
+    <div class="bank-note">Le puntate distribuiscono il budget di una giornata sulle giocate consigliate.
+      Il ritorno atteso usa la probabilit\u00e0 storica prudente e la quota mostrata. \u00c8 una media
+      statistica, non una promessa: nel breve periodo si vince e si perde.</div>
   </section>
 
   {combos_block}
 
-  <h3 class="eyebrow" style="margin-top:44px">Prossime gare \u00b7 {n_picks} giocate, la pi\u00f9 vicina in cima</h3>
+  <h3 class="eyebrow" style="margin-top:44px">Prossime gare \u00b7 il consiglio del sistema</h3>
   <div class="grid" id="grid">{cards}</div>
 
-  <footer>Strumento statistico a uso personale tra amici. Il "valore" c'\u00e8 solo quando la quota
-    Bet365 \u00e8 pi\u00f9 alta della quota equa. Nel breve periodo si vince e si perde. 18+. Il gioco pu\u00f2
-    causare dipendenza. <a href="come-funziona.html">Come funziona</a></footer>
+  <footer>Strumento statistico a uso personale tra amici. I consigli nascono dallo storico delle
+    partite, non da certezze: nel breve periodo si vince e si perde. 18+. Il gioco pu\u00f2 causare
+    dipendenza. <a href="come-funziona.html">Come funziona</a></footer>
 </div>
 <script>
 (function(){{

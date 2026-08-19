@@ -213,47 +213,42 @@ def build_payload(fixtures, feats, odds):
         seen[fx["fixture"]["id"]] = fx
     upcoming = sorted(seen.values(), key=lambda x: x["fixture"]["date"])
 
-    per_match = []
+    CORNER_MINPROB = getattr(config, "CORNER_HEADLINE_MINPROB", 0.60)
+
+    matches = []
     singles_pool = []   # per costruire le doppie tra partite diverse
     for fx in upcoming:
         sugg = suggestions_for_fixture(fx, feats, home_ids, away_ids)
-        passing = [s for s in sugg if s["lower"] >= config.MIN_PROB_SINGLE]
-        combo_legs = [s for s in sugg if s["lower"] >= config.MIN_PROB_COMBO_LEG]
         home = fx["teams"]["home"]["name"]; away = fx["teams"]["away"]["name"]
-        if passing:
-            per_match.append({"home": home, "away": away,
-                              "fid": str(fx["fixture"]["id"]),
-                              "date": fx["fixture"]["date"][:10],
-                              "options": passing})
-        for leg in combo_legs[:1]:
-            singles_pool.append({"match": f"{home}-{away}", **leg})
+        fid = str(fx["fixture"]["id"])
 
-    # SELEZIONE VARIA: 1 giocata per partita, evitando di ripetere sempre lo
-    # stesso mercato. Partite piu' solide scelgono per prime; una penalita'
-    # spinge le altre verso mercati diversi (corner / gol / cartellini / btts).
-    # tengo solo le partite che hanno almeno una giocata sopra soglia
-    per_match = [mm for mm in per_match if mm["options"]]
-    per_match.sort(key=lambda mm: mm["options"][0]["lower"], reverse=True)
-    market_count = {}
-    matches = []
-    for mm in per_match:
-        best, best_score = None, -1.0
-        for s in mm["options"]:
-            score = s["lower"] - 0.04 * market_count.get(s["market"], 0)
-            if score > best_score:
-                best_score, best = score, s
-        if best is None:
+        # --- CORNER protagonista: la previsione corner piu' informativa ---
+        corner_over = sorted([s for s in sugg if s["market"] == "corners"
+                              and s["side"] == "over"], key=lambda s: s["line"])
+        headline = None
+        # preferisco la linea PIU' ALTA che resti abbastanza probabile (>=60%):
+        for s in reversed(corner_over):
+            if s["lower"] >= CORNER_MINPROB:
+                headline = s
+                break
+        if headline is None and corner_over:               # nessuna >=60%: la piu' solida
+            headline = max(corner_over, key=lambda s: s["lower"])
+        if headline is None:                                # nessun dato corner: miglior giocata
+            headline = sugg[0] if sugg else None
+        if headline is None:
             continue
-        market_count[best["market"]] = market_count.get(best["market"], 0) + 1
-        # aggancio la quota reale Bet365 della giocata scelta
-        best["real_odd"] = find_odd(odds.get(mm["fid"], []),
-                                    best["market"], best["line"], best["side"])
-        matches.append({"home": mm["home"], "away": mm["away"],
-                        "date": mm["date"], "top": best})
+        headline["real_odd"] = find_odd(odds.get(fid, []), headline["market"],
+                                        headline["line"], headline["side"])
 
-    # le 10 piu' solide, poi in vista ordinate per DATA (la piu' vicina in cima)
-    matches.sort(key=lambda m: m["top"]["lower"], reverse=True)
-    matches = matches[:10]
+        matches.append({"home": home, "away": away, "date": fx["fixture"]["date"][:10],
+                        "top": headline})
+
+        for s in sugg:
+            if s["lower"] >= config.MIN_PROB_COMBO_LEG:
+                singles_pool.append({"match": f"{home}-{away}", **s})
+                break
+
+    # tutte le gare imminenti, in ordine di DATA (la piu' vicina in cima)
     matches.sort(key=lambda m: m["date"])
 
     # doppie: prendi le 2 gambe piu' solide da partite DIVERSE (indipendenza)
@@ -272,12 +267,11 @@ def build_payload(fixtures, feats, odds):
 
     def clean(s):
         real = s.get("real_odd")
-        value = bool(real) and (s["lower"] * real >= 1.0)
+        # quota da mostrare: reale Bet365 se c'e', altrimenti indicativa (dalla prob.)
+        shown_odd = real if real else round(1 / s["p"], 2) if s["p"] else None
         return {"label": s["label"], "p": round(s["p"], 3),
-                "lower": round(s["lower"], 3), "n": s["n"],
-                "tier": tier(s), "fair_odds": round(1/s["p"], 2) if s["p"] else 99,
-                "real_odd": real, "value": value,
-                "edge": round(s["lower"] - IMPLIED_15, 3)}
+                "lower": round(s["lower"], 3), "n": s["n"], "tier": tier(s),
+                "odd": shown_odd, "odd_real": bool(real)}
 
     for m in matches:
         m["top"] = clean(m["top"])

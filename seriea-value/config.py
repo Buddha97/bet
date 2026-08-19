@@ -60,6 +60,10 @@ MIN_PROB_COMBO_LEG = 0.82   # 82% per gamba (0.82*0.82 -> combinata ~1.5)
 MIN_SAMPLE = 12
 
 # Mercati da valutare. Le soglie (linee) sono quelle piu' comuni.
+# Corner protagonista: mostra la linea corner piu' ALTA che resti almeno a
+# questa probabilita' (piu' alta = previsione piu' informativa ma piu' rischiosa).
+CORNER_HEADLINE_MINPROB = 0.60
+
 CORNER_LINES = [7.5, 8.5, 9.5, 10.5]   # calci d'angolo TOTALI di partita
 GOAL_LINES   = [1.5, 2.5, 3.5]         # gol totali di partita
 CARD_LINES   = [3.5, 4.5]              # cartellini (gialli+rossi) totali
