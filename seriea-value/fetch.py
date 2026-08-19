@@ -133,6 +133,31 @@ def cmd_fetch():
         d = api_get("/fixtures/statistics", {"fixture": fid})
         stats[fid] = d.get("response", [])
         json.dump(stats, open(stats_path, "w"))
+    print("\nStatistiche fatte.")
+
+    # 3) quote Bet365 per le partite FUTURE (endpoint odds, 1 richiesta a gara).
+    #    Le quote cambiano nel tempo: le ri-scarichiamo a ogni giro (poche gare).
+    odds_path = os.path.join(DATA_DIR, "odds.json")
+    odds = json.load(open(odds_path)) if os.path.exists(odds_path) else {}
+    bookmaker = getattr(config, "BET365_ID", 8)
+    ns = {}
+    for arr in fixtures.values():
+        for fx in arr:
+            if fx["fixture"]["status"]["short"] == "NS":
+                ns[str(fx["fixture"]["id"])] = fx
+    print(f"Quote Bet365 da scaricare: {len(ns)} partite future.")
+    for fid, fx in ns.items():
+        h = fx["teams"]["home"]["name"]; a = fx["teams"]["away"]["name"]
+        print(f"  quote {h} - {a}")
+        d = api_get("/odds", {"fixture": fid, "bookmaker": bookmaker})
+        resp = d.get("response", [])
+        bets = []
+        if resp:
+            bms = resp[0].get("bookmakers", [])
+            if bms:
+                bets = bms[0].get("bets", [])
+        odds[fid] = bets
+        json.dump(odds, open(odds_path, "w"))
     print("\nFatto. Dati in data/. Ora lancia:  python analyze.py")
 
 

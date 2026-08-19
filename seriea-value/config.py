@@ -13,6 +13,9 @@ API_KEY = "INCOLLA_QUI_LA_TUA_CHIAVE"
 # Serie A su API-Football ha id = 135. Non cambiare, salvo tu voglia un altro campionato.
 LEAGUE_ID = 135
 
+# Bookmaker per le quote reali. Bet365 = 8 su API-Football.
+BET365_ID = 8
+
 # Limite di richieste al giorno del tuo piano.
 #  Piano gratuito = 100. Se passi al piano a pagamento, alzalo (es. 7500).
 DAILY_LIMIT = 7500      # piano PRO

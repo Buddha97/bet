@@ -144,6 +144,39 @@ def suggestions_for_fixture(fx, feats, home_ids, away_ids):
     return out
 
 
+def find_odd(bets, market, line, side):
+    """Cerca nella lista quote Bet365 la quota della giocata (o None)."""
+    def num(x):
+        try:
+            return float(x)
+        except Exception:
+            return None
+    for bet in bets or []:
+        name = (bet.get("name") or "").lower()
+        vals = bet.get("values") or []
+        if market == "btts" and "both teams" in name:
+            want = "yes" if side == "yes" else "no"
+            for v in vals:
+                if str(v.get("value", "")).strip().lower() == want:
+                    return num(v.get("odd"))
+        elif market == "goals" and "over/under" in name and "goal" in name:
+            want = f"{'over' if side == 'over' else 'under'} {line}"
+            for v in vals:
+                if str(v.get("value", "")).strip().lower() == want:
+                    return num(v.get("odd"))
+        elif market == "corners" and "corner" in name:
+            want = f"{'over' if side == 'over' else 'under'} {line}"
+            for v in vals:
+                if str(v.get("value", "")).strip().lower() == want:
+                    return num(v.get("odd"))
+        elif market == "cards" and "card" in name:
+            want = f"over {line}"
+            for v in vals:
+                if str(v.get("value", "")).strip().lower() == want:
+                    return num(v.get("odd"))
+    return None
+
+
 def tier(s):
     if s["n"] >= 25 and s["lower"] >= config.MIN_PROB_SINGLE + 0.05:
         return "alta"
@@ -153,7 +186,7 @@ def tier(s):
 
 
 # ---------- costruzione dati per il sito ---------------------------------
-def build_payload(fixtures, feats):
+def build_payload(fixtures, feats, odds):
     home_ids, away_ids = team_match_ids(feats)
     tracked = set(config.TEAMS.values())
     upcoming = []
@@ -180,6 +213,7 @@ def build_payload(fixtures, feats):
         home = fx["teams"]["home"]["name"]; away = fx["teams"]["away"]["name"]
         if passing:
             per_match.append({"home": home, "away": away,
+                              "fid": str(fx["fixture"]["id"]),
                               "date": fx["fixture"]["date"][:10],
                               "options": passing})
         for leg in combo_legs[:1]:
@@ -198,12 +232,16 @@ def build_payload(fixtures, feats):
             if score > best_score:
                 best_score, best = score, s
         market_count[best["market"]] = market_count.get(best["market"], 0) + 1
+        # aggancio la quota reale Bet365 della giocata scelta
+        best["real_odd"] = find_odd(odds.get(mm["fid"], []),
+                                    best["market"], best["line"], best["side"])
         matches.append({"home": mm["home"], "away": mm["away"],
                         "date": mm["date"], "top": best})
 
-    # le 10 piu' solide, ordinate per probabilita'
+    # le 10 piu' solide, poi in vista ordinate per DATA (la piu' vicina in cima)
     matches.sort(key=lambda m: m["top"]["lower"], reverse=True)
     matches = matches[:10]
+    matches.sort(key=lambda m: m["date"])
 
     # doppie: prendi le 2 gambe piu' solide da partite DIVERSE (indipendenza)
     combos = []
@@ -220,9 +258,12 @@ def build_payload(fixtures, feats):
             break
 
     def clean(s):
+        real = s.get("real_odd")
+        value = bool(real) and (s["lower"] * real >= 1.0)
         return {"label": s["label"], "p": round(s["p"], 3),
                 "lower": round(s["lower"], 3), "n": s["n"],
                 "tier": tier(s), "fair_odds": round(1/s["p"], 2) if s["p"] else 99,
+                "real_odd": real, "value": value,
                 "edge": round(s["lower"] - IMPLIED_15, 3)}
 
     for m in matches:
@@ -245,17 +286,18 @@ def build_payload(fixtures, feats):
 def main():
     fp = os.path.join(DATA_DIR, "fixtures.json")
     sp = os.path.join(DATA_DIR, "stats.json")
+    op = os.path.join(DATA_DIR, "odds.json")
     if not os.path.exists(fp):
         sys.exit("Mancano i dati. Lancia prima:  python fetch.py")
     fixtures = json.load(open(fp))
     stats = json.load(open(sp)) if os.path.exists(sp) else {}
+    odds = json.load(open(op)) if os.path.exists(op) else {}
     feats = build_features(fixtures, stats)
-    payload = build_payload(fixtures, feats)
-    from render import render
-    html = render(payload)
-    out = os.path.join(SITE_DIR, "index.html")
-    open(out, "w").write(html)
-    print(f"Sito generato: {out}")
+    payload = build_payload(fixtures, feats, odds)
+    from render import render, render_howto
+    open(os.path.join(SITE_DIR, "index.html"), "w").write(render(payload))
+    open(os.path.join(SITE_DIR, "come-funziona.html"), "w").write(render_howto(payload))
+    print(f"Sito generato: {SITE_DIR}/index.html + come-funziona.html")
     print(f"Partite storiche analizzate: {payload['n_matches_analyzed']}")
     print("Carica il contenuto di site/ sul tuo dominio.")
 
