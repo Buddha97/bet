@@ -1,0 +1,58 @@
+# =============================================================
+#  CONFIGURAZIONE  —  modifica solo questo file
+# =============================================================
+#  Qui decidi: quali squadre, quali stagioni, e quanto vuoi
+#  essere prudente nei suggerimenti. Non serve toccare altro.
+# =============================================================
+
+# La tua chiave API-Football. NON metterla qui se pubblichi il codice:
+# lasciala in una variabile d'ambiente (vedi README). Per i test locali
+# puoi incollarla qui temporaneamente.
+API_KEY = "INCOLLA_QUI_LA_TUA_CHIAVE"
+
+# Serie A su API-Football ha id = 135. Non cambiare, salvo tu voglia un altro campionato.
+LEAGUE_ID = 135
+
+# Limite di richieste al giorno del tuo piano.
+#  Piano gratuito = 100. Se passi al piano a pagamento, alzalo (es. 7500).
+DAILY_LIMIT = 7500      # piano PRO
+
+# Pausa tra una richiesta e l'altra, in secondi.
+#  Il piano gratuito ammette ~10 richieste/minuto: 7s e' prudente.
+#  Col piano a pagamento puoi abbassarla (es. 1).
+REQUEST_PACING_SECONDS = 2   # PRO consente piu' richieste al minuto
+
+# Stagioni da scaricare (anno d'inizio del campionato).
+# Piano gratuito: parti con 1-2 stagioni per non finire le richieste.
+SEASONS = [2024, 2025, 2026]
+
+# Le squadre che ti interessano, con il loro id API-Football.
+# ATTENZIONE: verifica gli id col comando  ->  python fetch.py teams
+# (gli id qui sotto sono quelli tipici ma vanno confermati).
+TEAMS = {
+    "Inter":      505,
+    "Milan":      489,
+    "Juventus":   496,
+    "Napoli":     492,
+    "Roma":       497,
+    "Lazio":      487,
+    "Atalanta":   499,
+    "Fiorentina": 502,
+}
+
+# --- Soglie di prudenza -------------------------------------
+# Una quota 1.5 = probabilita' implicita del 66.7%. Per suggerire
+# una singola a 1.5 pretendiamo che la probabilita' STORICA PRUDENTE
+# (limite inferiore, vedi analyze.py) superi questa soglia:
+MIN_PROB_SINGLE = 0.72      # 72%: margine sopra il 66.7% della quota 1.5
+
+# Per una doppia combinata che fa ~1.5, ogni gamba deve essere quasi certa:
+MIN_PROB_COMBO_LEG = 0.82   # 82% per gamba (0.82*0.82 -> combinata ~1.5)
+
+# Campione minimo di partite sotto cui NON ci fidiamo di una percentuale:
+MIN_SAMPLE = 12
+
+# Mercati da valutare. Le soglie (linee) sono quelle piu' comuni.
+CORNER_LINES = [7.5, 8.5, 9.5, 10.5]   # calci d'angolo TOTALI di partita
+GOAL_LINES   = [1.5, 2.5, 3.5]         # gol totali di partita
+CARD_LINES   = [3.5, 4.5]              # cartellini (gialli+rossi) totali
