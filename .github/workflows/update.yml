@@ -2,7 +2,7 @@ name: Aggiorna schedina
 
 on:
   schedule:
-    - cron: "0 6,16 * * *"
+    - cron: "0 6,16,23 * * *"
   workflow_dispatch:
 
 permissions:
