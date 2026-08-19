@@ -44,6 +44,7 @@ jobs:
           git config user.email "actions@github.com"
           git add seriea-value/data seriea-value/site || true
           git commit -m "aggiornamento dati $(date -u +%F)" || echo "niente da salvare"
+          git pull --rebase --autostash origin main || true
           git push || echo "niente da pushare"
 
       - name: Prepara la pubblicazione
