@@ -13,9 +13,18 @@ API_KEY = "INCOLLA_QUI_LA_TUA_CHIAVE"
 # Serie A su API-Football ha id = 135. Non cambiare, salvo tu voglia un altro campionato.
 LEAGUE_ID = 135
 
+# Limite di richieste al giorno del tuo piano.
+#  Piano gratuito = 100. Se passi al piano a pagamento, alzalo (es. 7500).
+DAILY_LIMIT = 7500      # piano PRO
+
+# Pausa tra una richiesta e l'altra, in secondi.
+#  Il piano gratuito ammette ~10 richieste/minuto: 7s e' prudente.
+#  Col piano a pagamento puoi abbassarla (es. 1).
+REQUEST_PACING_SECONDS = 2   # PRO consente piu' richieste al minuto
+
 # Stagioni da scaricare (anno d'inizio del campionato).
 # Piano gratuito: parti con 1-2 stagioni per non finire le richieste.
-SEASONS = [2023, 2024, 2025]
+SEASONS = [2024, 2025, 2026]
 
 # Le squadre che ti interessano, con il loro id API-Football.
 # ATTENZIONE: verifica gli id col comando  ->  python fetch.py teams

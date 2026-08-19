@@ -42,8 +42,12 @@ def _save_counter(c):
     json.dump(c, open(COUNTER_FILE, "w"))
 
 
-def api_get(path, params, daily_limit=100):
-    """Una chiamata all'API, contando le richieste della giornata."""
+def api_get(path, params, daily_limit=None):
+    """Una chiamata all'API, contando le richieste della giornata.
+    Rispetta il ritmo del piano e gestisce il limite-al-minuto (429)."""
+    if daily_limit is None:
+        daily_limit = getattr(config, "DAILY_LIMIT", 100)
+    pacing = getattr(config, "REQUEST_PACING_SECONDS", 7)
     c = _load_counter()
     if c["count"] >= daily_limit:
         # Non e' un errore: e' una pausa. Usciamo "bene" (codice 0) cosi'
@@ -54,16 +58,26 @@ def api_get(path, params, daily_limit=100):
     qs = "&".join(f"{k}={v}" for k, v in params.items())
     url = f"{API_HOST}{path}?{qs}"
     req = urllib.request.Request(url, headers={"x-apisports-key": _key()})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            data = json.loads(r.read().decode())
-    except urllib.error.HTTPError as e:
-        sys.exit(f"Errore API {e.code}: {e.reason}")
+    data = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                data = json.loads(r.read().decode())
+            break
+        except urllib.error.HTTPError as e:
+            if e.code == 429:  # troppe richieste al minuto: aspetto e riprovo
+                print("  limite-al-minuto raggiunto: attendo 65s e riprovo...")
+                time.sleep(65)
+                continue
+            sys.exit(f"Errore API {e.code}: {e.reason}")
+    if data is None:
+        print("  troppi tentativi falliti, mi fermo qui (riprende dopo).")
+        raise SystemExit(0)
     c["count"] += 1
     _save_counter(c)
     if data.get("errors"):
         print("  avviso API:", data["errors"])
-    time.sleep(0.4)  # gentile con il server
+    time.sleep(pacing)  # ritmo prudente per non sforare il limite al minuto
     return data
 
 

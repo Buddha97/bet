@@ -100,7 +100,7 @@ def render(p):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Schedina · Serie A value</title>
+<title>Schedina free money</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -212,7 +212,7 @@ footer{{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
 <body>
 <div class="wrap">
   <header>
-    <div class="brand">Sche<em>dina</em><br>Serie A · value</div>
+    <div class="brand">Schedina<br><em>free money</em></div>
     <div class="meta-line">
       <div class="muted">aggiornato</div>
       <div class="mono">{p['generated']}</div>

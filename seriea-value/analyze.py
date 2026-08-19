@@ -10,6 +10,11 @@ che penalizza i campioni piccoli (10 partite non valgono come 100).
 Uso:  python analyze.py
 """
 import os, sys, json, math, datetime
+try:
+    from zoneinfo import ZoneInfo
+    _TZ = ZoneInfo("Europe/Rome")
+except Exception:
+    _TZ = None
 import config
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -213,7 +218,7 @@ def build_payload(fixtures, feats):
         c["legs"] = [{"match": l["match"], **clean(l)} for l in c["legs"]]
 
     return {
-        "generated": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "generated": datetime.datetime.now(_TZ).strftime("%d/%m/%Y %H:%M"),
         "n_matches_analyzed": len(feats),
         "seasons": config.SEASONS,
         "matches": matches,
