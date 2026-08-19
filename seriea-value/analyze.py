@@ -219,9 +219,8 @@ def build_payload(fixtures, feats, odds):
         for leg in combo_legs[:1]:
             singles_pool.append({"match": f"{home}-{away}", **leg})
 
-    # SELEZIONE VARIA: 1 giocata per partita, evitando di ripetere sempre lo
-    # stesso mercato. Partite piu' solide scelgono per prime; una penalita'
-    # spinge le altre verso mercati diversi (corner / gol / cartellini / btts).
+    # tengo solo le partite che hanno almeno una giocata sopra soglia
+    per_match = [mm for mm in per_match if mm["options"]]
     per_match.sort(key=lambda mm: mm["options"][0]["lower"], reverse=True)
     market_count = {}
     matches = []
