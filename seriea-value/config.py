@@ -64,6 +64,12 @@ MIN_SAMPLE = 12
 # questa probabilita' (piu' alta = previsione piu' informativa ma piu' rischiosa).
 CORNER_HEADLINE_MINPROB = 0.68   # allineata alla soglia: la linea corner scelta resta solida
 
+# --- Caccia al valore -------------------------------------
+# Cerca giocate a quota piu' alta dove la nostra probabilita' prudente
+# batte la probabilita' implicita nella quota reale (Bet365).
+VALUE_ODDS_MIN = 1.7    # fascia di quota da esplorare: minimo
+VALUE_ODDS_MAX = 3.0    # massimo
+
 CORNER_LINES = [7.5, 8.5, 9.5, 10.5]   # calci d'angolo TOTALI di partita
 GOAL_LINES   = [1.5, 2.5, 3.5]         # gol totali di partita
 CARD_LINES   = [3.5, 4.5]              # cartellini (gialli+rossi) totali

@@ -259,6 +259,9 @@ def build_payload(fixtures, feats, odds):
     matches = []
     singles_pool = []   # per costruire le doppie tra partite diverse
     per_match = []
+    value_raw = []      # occasioni di valore (quota alta che batte la nostra stima)
+    vmin = getattr(config, "VALUE_ODDS_MIN", 1.7)
+    vmax = getattr(config, "VALUE_ODDS_MAX", 3.0)
     for fx in upcoming:
         sugg = suggestions_for_fixture(fx, feats, home_ids, away_ids)
         passing = [s for s in sugg if s["lower"] >= config.MIN_PROB_SINGLE]
@@ -271,6 +274,17 @@ def build_payload(fixtures, feats, odds):
             if s["lower"] >= config.MIN_PROB_COMBO_LEG:
                 singles_pool.append({"match": f"{home}-{away}", **s})
                 break
+        # caccia al valore: quota reale nella fascia + prob. prudente che la batte
+        for s in sugg:
+            ro = find_odd(odds.get(fid, []), s["market"], s["line"], s["side"])
+            if ro and vmin <= ro <= vmax and s["lower"] * ro > 1.0:
+                s2 = dict(s)
+                s2["real_odd"] = ro
+                s2["match"] = f"{home} - {away}"
+                s2["date"] = fx["fixture"]["date"][:10]
+                s2["edge"] = s["lower"] - 1.0 / ro   # margine sulla quota
+                value_raw.append(s2)
+    value_raw.sort(key=lambda x: x["edge"], reverse=True)
 
     # MIX: una giocata per partita, la piu' solida, ma diversificando i mercati
     # (una penalita' spinge verso mercati diversi: corner / gol / cartellini / btts).
@@ -322,14 +336,23 @@ def build_payload(fixtures, feats, odds):
     for c in combos:
         c["legs"] = [{"match": l["match"], **clean(l)} for l in c["legs"]]
 
+    def clean_value(s):
+        return {"match": s["match"], "label": s["label"],
+                "lower": round(s["lower"], 3), "n": s["n"], "tier": tier(s),
+                "odd": s["real_odd"], "edge": round(s["edge"], 3),
+                "date": s["date"]}
+    value_picks = [clean_value(s) for s in value_raw[:10]]
+
     shown = matches
 
     return {
         "generated": datetime.datetime.now(_TZ).strftime("%d/%m/%Y %H:%M"),
         "n_matches_analyzed": len(feats),
         "seasons": config.SEASONS,
-        "target_odds": 1.5,
+        "value_band": (getattr(config, "VALUE_ODDS_MIN", 1.7),
+                       getattr(config, "VALUE_ODDS_MAX", 3.0)),
         "matches": shown,
+        "value_picks": value_picks,
         "combos": combos[:3],
     }
 
