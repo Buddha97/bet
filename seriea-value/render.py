@@ -1,7 +1,78 @@
 # -*- coding: utf-8 -*-
 """Genera il sito (index) e la pagina 'Come funziona' dal payload."""
 
+import hashlib as _hashlib, os as _os, base64 as _b64, struct as _struct
+
 IMPLIED_15 = 66.7
+
+
+def gate(html, password):
+    """Cifra l'HTML con la password: nel sorgente resta solo testo illeggibile."""
+    data = ("SFMOK::" + html).encode("utf-8")
+    salt = _os.urandom(16)
+    ks = bytearray()
+    i = 0
+    while len(ks) < len(data):
+        ks += _hashlib.sha256(salt + password.encode("utf-8") + _struct.pack(">I", i)).digest()
+        i += 1
+    ct = bytes(d ^ k for d, k in zip(data, ks))
+    salt_b64 = _b64.b64encode(salt).decode()
+    ct_b64 = _b64.b64encode(ct).decode()
+    return _GATE_HTML.replace("__SALT__", salt_b64).replace("__CT__", ct_b64)
+
+
+_GATE_HTML = """<!DOCTYPE html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Accesso riservato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1000px 500px at 60% -10%,#182131 0%,transparent 60%),#0E1116;
+  color:#E9E6DD;font-family:Inter,system-ui,sans-serif}
+.box{width:320px;text-align:center;padding:24px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:38px;line-height:.9;margin-bottom:6px}
+.logo em{color:#E0B84C;font-style:normal}
+.sub{color:#828C9B;font-size:13px;margin-bottom:22px}
+input{width:100%;background:#0c0f14;border:1px solid #2A3340;color:#E9E6DD;
+  font-family:'Space Mono',monospace;font-size:16px;padding:11px 12px;border-radius:8px;text-align:center}
+input:focus{outline:1px solid #E0B84C}
+button{width:100%;margin-top:10px;background:#E0B84C;color:#0E1116;border:0;font-weight:600;
+  font-size:15px;padding:11px;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif}
+.err{color:#C1727A;font-size:13px;margin-top:12px;min-height:18px}
+</style></head><body>
+<div class="box">
+  <div class="logo">Schedina<br><em>free money</em></div>
+  <div class="sub">Accesso riservato</div>
+  <input id="pw" type="password" placeholder="password" autofocus
+    onkeydown="if(event.key==='Enter')go()">
+  <button onclick="go()">Entra</button>
+  <div class="err" id="err"></div>
+</div>
+<script>
+var SALT="__SALT__", CT="__CT__";
+function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0);});}
+function cat(a,b){var c=new Uint8Array(a.length+b.length);c.set(a);c.set(b,a.length);return c;}
+async function sha(buf){return new Uint8Array(await crypto.subtle.digest('SHA-256',buf));}
+async function go(){
+  var pw=document.getElementById('pw').value, err=document.getElementById('err');
+  err.textContent='...';
+  try{
+    var salt=b64(SALT), ct=b64(CT), pwb=new TextEncoder().encode(pw);
+    var ks=new Uint8Array(0), i=0;
+    while(ks.length<ct.length){
+      var ctr=new Uint8Array([(i>>>24)&255,(i>>>16)&255,(i>>>8)&255,i&255]);
+      ks=cat(ks, await sha(cat(cat(salt,pwb),ctr))); i++;
+    }
+    var pt=new Uint8Array(ct.length);
+    for(var j=0;j<ct.length;j++) pt[j]=ct[j]^ks[j];
+    var text=new TextDecoder().decode(pt);
+    if(text.slice(0,7)!=='SFMOK::'){ err.textContent='Password errata.'; return; }
+    document.open(); document.write(text.slice(7)); document.close();
+  }catch(e){ err.textContent='Password errata.'; }
+}
+</script></body></html>"""
 
 
 def _itdate(iso):
