@@ -33,6 +33,7 @@ jobs:
         working-directory: seriea-value
         env:
           APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
         run: |
           python fetch.py || true
           python analyze.py
