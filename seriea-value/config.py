@@ -37,14 +37,26 @@ SEASONS = [2024, 2025, 2026]
 # ATTENZIONE: verifica gli id col comando  ->  python fetch.py teams
 # (gli id qui sotto sono quelli tipici ma vanno confermati).
 TEAMS = {
-    "Inter":      505,
-    "Milan":      489,
-    "Juventus":   496,
-    "Napoli":     492,
-    "Roma":       497,
-    "Lazio":      487,
-    "Atalanta":   499,
-    "Fiorentina": 502,
+    "Roma":          497,
+    "Inter":         505,
+    "Napoli":        492,
+    "Lecce":         867,
+    "Milan":         489,
+    "Atalanta":      499,
+    "Juventus":      496,
+    "Cagliari":      490,
+    "Lazio":         487,
+    "Udinese":       494,
+    "Como":          895,
+    "Torino":        503,
+    "Sassuolo":      488,
+    "Bologna":       500,
+    "Parma":         523,
+    "Frosinone":     512,
+    "Venezia":       517,
+    "Genoa":         495,
+    "Monza":         1579,
+    "Fiorentina":    502,
 }
 
 # --- Soglie di prudenza -------------------------------------
