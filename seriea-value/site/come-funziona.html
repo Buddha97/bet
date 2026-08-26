@@ -1,64 +1,52 @@
 <!DOCTYPE html><html lang="it"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow"><title>Come funziona · Schedina free money</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
-:root{
-  --bg:#0E1116; --panel:#161A21; --panel2:#1B212B; --line:#2A3340;
-  --paper:#E9E6DD; --muted:#828C9B;
-  --mint:#7DD3A8; --amber:#E0B84C; --clay:#C1727A;
+<meta name="robots" content="noindex, nofollow"><title>Accesso riservato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1000px 500px at 60% -10%,#182131 0%,transparent 60%),#0E1116;
+  color:#E9E6DD;font-family:Inter,system-ui,sans-serif}
+.box{width:320px;text-align:center;padding:24px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:38px;line-height:.9;margin-bottom:6px}
+.logo em{color:#E0B84C;font-style:normal}
+.sub{color:#828C9B;font-size:13px;margin-bottom:22px}
+input{width:100%;background:#0c0f14;border:1px solid #2A3340;color:#E9E6DD;
+  font-family:'Space Mono',monospace;font-size:16px;padding:11px 12px;border-radius:8px;text-align:center}
+input:focus{outline:1px solid #E0B84C}
+button{width:100%;margin-top:10px;background:#E0B84C;color:#0E1116;border:0;font-weight:600;
+  font-size:15px;padding:11px;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif}
+.err{color:#C1727A;font-size:13px;margin-top:12px;min-height:18px}
+</style></head><body>
+<div class="box">
+  <div class="logo">Schedina<br><em>free money</em></div>
+  <div class="sub">Accesso riservato</div>
+  <input id="pw" type="password" placeholder="password" autofocus
+    onkeydown="if(event.key==='Enter')go()">
+  <button onclick="go()">Entra</button>
+  <div class="err" id="err"></div>
+</div>
+<script>
+var SALT="uL/fexSGu27Bl1X8PTCLWw==", CT="Rhpc/gsAyNNci9h88DQArGXtYZDYohfrBVaO7riaxQ/eHqXeM1PGdY+Eu5Xxsft3j4reFOrGL7ELvE/xQ2tRjlGuNZbbLOjo2EeNPmflIFOHlCZn/XsYlPEmxzy1a3nVAT+L2GP0ckrXfy5hU/HAT04uBnotPvn2qJIl+TlaCR0LzmT4YnaqJnq8zmSrsdUG0jEDclhQ6x4jjYC++EXUo44ftqDaeXymd1PGC6om+9n/7hfqcrOHWzanEeMQYKYL0kaZdygXMxuSddmlwql3M0O9e1YEC+quJkOfNUQuo71fpIX+Gj5AHfKGX8p64OCtJp4t0sJrv294fel9qQ1Vz3QakRiGZEFThKXgnkTlfxUjOp/vM5ZRg1XayAw0sD5yYjV5cTdSc8ssOtJlhOimcshfp0nRjzM5ky5YKVL+42uzmp8RtYurknuBD82xSVfSGuwqbRwKFLRyyIvYXfypHbmy040R7pZO9GI3iyzjkFfnFiPTZj8U5LVdTqKp6MOFJhNH/3zhx/5357/QIug+aJSmMOStLvj02gApwhn6PeMqHAuVmxgScV4XiMkOAuLWnDE9CyRhxVMFGhP6J76fQUn0xQMBBvJimkTgBh5zuv5wDvHCeVtMKCIjQNMqBmgrv2SaDrb9heG3rExArwAxJA4tcdwMUZtLWk4873BkAq3NHxX9wYAc1nfIaLBCDhzqMHNkVhMMKqpHayZa1QA+kVr3mGUIaRMb8WUPgCg5ZoPZhv1C3kJAnOMU36RN4+ADz2MxBXQaUEhIi4DCYfBDoLfqt4SX6ro3/3Y8/HFrWo41x6IX6qJIKAsFIqaCSx4ojVR3kvQpFUNdN/f/vpKe139LqyLyvhjbzcpJMiKmhfeqcshqPLYGeoPeEpAc+ZPMubhebQfvNaxkLWrQGVMLQAIjCjaQT2rPJeqEWNbAIIU8+ayuP1o229P4gl+CH9KTwBrUChYstWXpsb5JHGpyz6/F7+SDaEJ4FvjzutlCfh5xsDf5sN7RL/VTSvozCYXhuov8N5WaUcAopRLRUCQ0t5ELus+ux+hSgHmTJr4gdU2mqQqZduNuwQo5TTIhjMqML0V/ASJ/iloLNvZiPhgXLm9Is81wQXSoFNvn/I+ctlYXOqKy40l7KgyjA+mKzdkqMo3AL19ZVRba9HSOzKTv0KQ/2NkRPERvTAAsdX5Ap262Vd1dF5u9N+2sVnSSXJMyKFs7zFxC39M6hrnLiyhYayFBnhqUKSSFLf9M+qwLUR18LehOCzQ3WelYpeBaWAEvxIXeZvIXh4bhVL4yics9o5cT1jnWNaVDriEq3rIMv9BOFRo/WzzhRyOU1Cohqqfxso+vUqNVSoRTwhXGatJotd4fbJu1jrIsHOgb15wlfWc/YHHuyzavQndRtmbfHUecEjZQsb1TgPpKwxJyYtiXern/anMV0ry1g9JAJj8QoQY9jklZvEYdx6UrRDI6sVPlVRC2yuvdark1prh7crSk1Q1WMo+Pog6nOsgW2GRT34kjj0U1FYiwsYbqLAadFwaOvBbkSkKwrJGC3WjgPobqnd/cGNqx+O2lKgwGpX3eeZxsnDBM3Me+ZrpAPxB027jXlD+xzy6fm5HB460j2qyR2GW1DYuOU1FdPlChVs2L1wIYVFMaKfQRNRwrPHlCltGWdludNnX/717KRtsGfK+0vJ7qWhS0y9oQlOIuTxPIf1HXyu1KvkKeIs3clJjmd5A0Aa/Mu87qV7oCXV15nroJn5gF3Yi4V10y6lgOI3oC6Ys1fp6RJbZ4LtF8iutCPZ5fsu1iaQDIEHHFIt0qk5WOQFZdNTYMZhC//HsNRHfxk7x3sfaz6kpGUY28yXDtCmB2C/TmHWqlgBztrFQGjr45ASTbZuVow3UF2rRnqoGuCI1AUH5wSt+ikFHESIJ1e+Jv7TB1rTA0mkXoQShOLSo8DAva1jhRQdzXSGPwqjy5GHo+Dl0+iG1ifHDw/1clfV94ozPxDSO+dUFJ9ZGHhPcHHpFUJLLOwQoy/aPi2P2Li/ZeZr/xw8z5zRrYQMDLy5+/1SMKQXsVm2FXlVzSa2LyCKjdNfwdX2T+aaxGJDpg4VzKMkW5L+mvQAiVsYPF0caZv4i0/LYo17nrVmI+t/4JawFleMmxlKA/O5Gy9ZLKzG6xYCCQH3j2k+PlHEn05ada2keeKPU5/3mYaSDT2eYkcUcf803IQzh09R6YeiRzXgQgEvqNDNpDcqQRUXIMoNHioPymV2xfGJzgsed0sseDLGo3YBblojjz4aFCh+ISlUDifO2cXsPZL8szsSo/oSKnBU3RSgBgVpyRy0GmWuQfq5KUNE5P8u1h+QcWF7CgcMY/5sKNMSUTp/Dm+bJ1vYZg99Dbct+0WkFg+Wb2Uejh4FvtTtvbPxOSCsP2J3m6wvlK8oF8jPg5uHNxxpzuwcJLseyUZqTncVxD8QVUcSE9+ElZBRHMHaNrAapSuOhRG2D6OOFchpz984ur6RgrxlBXrBLQYsN3yLnkkG6VVGa3FqrW36fr8qwxGnEcdnTe76/HIatvqYzI6RCRgD0PwpNHyh5SiBL+K3GwUcc2x61JZWeAh+1V8wgIgMzdhJLhOGKoi0t+SEVpJvhIaKy76uAu7g9SWHYf55ZGeMiJQ3QP+cdtnpUrif3wTaT7zHd7LDPm0WG8kWoZrtHbKfg6pILgNqU7BQd7WczRkZX2baL5PW/kSXpl6rx1WzpYPYXq9nJ8ntanj7f+7rpj/XzeYmynvYUKEwNm8EN80efiOn4jmTWxCgjnKCJL32f6XEfWVuZ8AN0wHV8eIdNxwDzVEyjVWdlYAiPm64ntRiQqvHyuE0V0aZDYkaLMhUGLy2QYH9w6/iCTOcADSa9ZiFRD6kEtQ2j3AcLuQ8GbbC5CQxCUPIRN12xqpuUJGUTcoIwLIl6jebBBoMfZ1iPx+jAad5FqnTbeUYy+fPLhMSLW55ElpFhqiFBEAmnzLheuTP2HorSzf/Z2wSe0bivTXPT+VF18ZMk7w8qRRaQiGEzrGX0j5ZDTVLVGt8Jbk8E4vQyn0B7S+TPE4SJBmZzIJKWulADJbQbCMLoX474a4PWT3OT68EHI5XLdEgKSBxeL2cEjUEc9YtGdn5zJsmKarp3gAhmdlkzo0Giy8olkGuwxEr1ro9FmmRILD07lQl7LldxGPbRzc0w9T91dv+fIfMXgpBbsJKXlc2xUd0NFrbf/Q8k306Duy4SuIVEflkIrFUGbIMw7kbRA/aYnC/LaYICIU1yp4K2QLKBTkkj+ED+4OIoDhZT0rfTT/dHRlg69rDDHDsomtXRfPq3fKfut9dlj3rMII3lV9pMutvdEzaAUGLHyTw25fa52lMd/q9/CPUpa07nWcX6vqRkonNbWWK1k2TGr37py/K89p+O4Jq7+TzbV7ulnBqMDLvLCmJ0DcfCXQDzqR6TMSlcRRWlCdgbUR6DD1X6/0iUNKSCjiq/+juAf1v7T9keOWsu4jZsyy+pahtrEwDe+Uv1oAGfWiZh77xop1Tb8XC6PhDpC29lHLYTZvzQYHSMCjb+E93U/IX3TW+4nIDEirB0JbNlCFacGfpXdhIhlcUFoUlV0EgHQCI3TNzdshT+dwKlMD+BzQSmuxKmLrz3QsJuCK5r/mBKWs2v22Fqz7FcIB1P/0oRu94tBfj016ep5LSVBgUpU6MLmVhzZWqNJVmgn0Bl8pd2MblRB6009Nn+0M+wBHnhcSlMc3KTpVUl6B6V9WCik3rtDO72w6XTll1YTcYlA0squgF638l88so+hieMnoLHvySgg8wBXZWohZRhrbPljta3saMy4ppvMoEM/R64dRpptb6CnoZ9SVbjyWMSKe/jdtHhxtwYMml1Yqbg3B/5qpu2mpGzz4jECNJ+MwJun2/cUpxrgaVPbUYQJ5CKilww03B9+7F9R0DhBVpGH3mmPih1MOSbHMwT6rxPjFDk28a48IvPQ2QKwgU/UmDnMyq+6YG+nwdwmbQsNvdD1IfZ3R8kXttpiG60MTYcLkEjagkIOdnMbR58FdcScU/baI+dT04lMXRb3od6Rl9tiDlCqNPNnk+BduXLATjXsOfAHq1nrUftscvUeNpnKP83psYNZBTiZE64m0eXkMI/hf96GwBLeCe7t9bC2Fp9iy+7pfLH+4ETOPFqQZNZNH9Iuy4vz0FtCbG6IVe2GbZl0yxKBxzrJEYAb/YJk1kAXILuUjJXZ53Z9VnAchvhxPD2ovUuNzR2Yq0k1G3pld9rm9oRj/qxr3k+SiOrLLrDC7K+0IWbO2NIEDOjMBZKoqymfYoFDkkdfe48C4P76i2v5EoyWZ8IksNiiioU8QVYzy/wOgbVdJRB08ipqTHxNiJlFvLaxTnZ5/SFk5pS0yyBa2JPWAWkNSzh4g9X5oosTqviYdZhoKMWOYGvUsBQfgJ8fJDeG7dMQI5dpD8y9Qu1SJpmpuX6wenR7qekqx2522Z99xKZ8hLONIWDUOnkwIsvnEHdppn9RF0uzSXLVOanSXUvi7OlfswItTa+QDALBJnpsHgLgntdW7pQFADctaWeXSm3KZDIbQyRDRO0CCrkGEdSOI5P0qh1F9WgPRcBXs0AFlfWXtZbkne+BusNc9qX/r0fHtiv2BhDQ+oLmWc3bz9KV75dzquzmiyPuzAD0FOOgMoQ0KdnM42qW3tnLKJ9pGaxUmJRCfxXwoFmBrxABXK6C+Qxe0VB7v0mgO0tksInF1JIqpDZ48+ae0s/+StVjpoDdFpZNMwmRFBEeSCvcB6NRBA2AcOXgisUD0CuhDxNSAMSGFRezTI0937MJvpbsTbfnCIhgiq2Fe4y/0vCyRPoV/YrEab9R/BgDlLGe9+FmnIqfBriqIL0lLJQem/P2qFAxDKEVTU/op29f3dbwcRhg18vEv/bPQ5XdyDee46pUrsPbCdosQyiQHZQ2DOsdWx3jSPZTwoapeEerHa9Cjrh+cS47htWGt4bginalu2yIiX6foNHDGkXRo3syvZj0spaPzXitVqO8dQMEU0bnfqoDFIJlV9Lul7dEQwRb5s8c7HGMpC6Cjr+3kvSLnycSyNxwkpcR8t/F57vXuc7GQCcsuQkctB//YSLRd3DK00jHEnUwCis+UIad60SJ/uuKyiBXNM/00dMPnUip3c62ruGKluBtMk9rab8MHQYc80Tf//fjEsxxvvJ2AEassf7ypKDWJR3ImgeZfyRi2PLq0WJsPiWAEnBvKCm6KrJmaOopM+RGGF+1FUGPGFLQmuSvblaXrufLYZPoIeDbVSDXRufZcK0/e/PDTRf8+uMTrC/IoPV8xsSfWRUqsl3tRy4KnUyVEix4qnqpeZsEc3RZ4GOOmJJkLdXhJm7RKau3kzixXCvgEKvLoocjzQMii7oK2QysZhyzQ9ABUiWIBwTNIVbp4hK1oF23NdeX8HoKibYr3Z1DXz5pM1rnXQ/1luGRlNbQMGdPVnTvqVLzG9mTBpdq7ZPrNI5EsDLnDXch7XGeU4qWdhfkwFWTm5V/s/HuByplV4FL83MWcBldZk9sloCe0bLq3nKtlG2Iq2uHJdLcYXjZIUfOqpYQyrqeHxw48pv7xKyun4uskPZhFQkTMT5qxu4c/dtP1GjoOMJPvwvhi0TTJ1vL3DwYEMlMmW5OhAUgIc8hl6Szo5lYMcoPr1PVkz21O1n8kgmybqkGYYpd4YZgQoyQ8Za8QE/mprHReM28Ii2ZiIzI/+Wgf8Qlh+vd/RZrlO1IAW/G3C5Pbpxhf/C1Q4RaBzGwJfuqQOeKDvfgRc3LK+V/GMXnvzav0x60J+L9fePgaw8AYYON+38gAcGaugTFJH7Dxmk9F1q7zd0F4xOLmaYJX5/zOYr4rTco8fEV7v9+DzdRZ4ff6Bv53gAiA4oGHmSFnnOptoHjfc3q3nmt/sWD9zdYRhgxXAr4O/3XXbWIKlcz1URoGGEknELTGDWIdPxLlSuxoVryqcjmJ2UnYBPs09YFPZitRdYTNnUnCAZN/+AZzdvIWECes00DBWgiwwrqr1hQ846gabR3n+90x8XPK6J490cK3yos4tGbKn9dc/CV1hQq3qohFhX5gnrqhNtDeodVW39Xiz4BpWibfTfOVVKkxlIFkZiUTyWs3E75RkhIwM6/qd2ZtwUh1s6Pf9o2j3Pg9751hvbMr9JP8Q4DvW9u9GTJXQPWeOaNxZcMoOidkAQFfID8RhljNy+TMcimPuz0Crhdmopzu2sEydVgrbLtwolD0iBSG8aeo3vhMmxR5wa42JC8+Jh8zA83VER+ixLlnqjPmu1CjmtahoRebUUfD00Zt+ZTHPYqNH/wDsTp9AWgpOtJPm51gs6nqEjHoaTPFYrt8qAUPVNvFUBvNGfbT3pMwp+3EmPOa5JhsXMkUJ+Y4eLvyRnqw1joXRVozc8wLu6OmvuBJX2eEJAfQAm8Mz6JEtboiv3FpzN+Ydf/lrKv+a6eplX3UveJX4fZrLt2k3to4yMuRwnHlQwA5j6skZ9K2U0hPvIlLJOF0vyh8V94TahTscTrQQZtlQ1L0MVDs0z4P73iusNTDHRIFE6RAaNxKOumJ/4eg+VpYxjUsJ2vmT+ucWOUSDRSMCF3oKgoxAbrTYB1+vxsrBny0XZK3CQ13MdMFEebl27V623g4iHi4pk5NItl0O9MX33fxT8FLVb5sRwdzEEad0ulz0dASMYscYyvMeQSZDklvGX9wzYJDbOYy6dgYPdduv00b8EP6aL5QWFXdvgjy78vqqTEz0fTRm3tBwoM/Q/+Kcwz+ns+XqLAHVtD6wjon5a1zK/4KC2h4ZwGQTxWLT4vnfrEp63n6dW82f7st5IwIsI/Upn4bwWZgzuuAQNQtfdnEgz37BMC3eNdxowSJcJQr1MrxjVrqLfY1oyzIEs0lYEj1TDmSj3b5SVzEbhPMLDhTqezjIOwnKvLEzFQM8MshDv8ayKTD4zscrDvKlotEBFN2Rjm3w7s/AFILDz1wNkbOiHP7Djv1GBZ1nQYwUBAKszH03HgRjxkMQpxc5qtL5M3YnrwbwEvU7MQeEVBe/bgrkotZJ5PX8bdiTmETtlBRTGvC2wKQL660LrYMAp99SsZrqzwWrdBkyPLwWv0u372CDe9/SuczxcWhYCwhiUTGhzdr71q56P6qFEKFMCBuepLu4/yMUYve0EKgd/Ru1T+TnizLqQyfMFnpEPPXD1Gr4htwHN63Qswb0qzwcYvvcD0zu20tz5YGWuhnQ4ZsYAS4J5ZyRBHtbDm2V5sRi5Mt1EcuSSTy02PZKmD9VPklbdFmmkcYqy9upfQib/1yzKAx79jn5zCU3yP9Cq3uneBGdrlcexo+Rf/NSoHnqbJ7VJlIehPd/pMtn81sMDiSpyubw/5rljzJVbpyYFQ85mEdgcfMQHkPs7+lDeGBJyp9Q2tzJLSqE6mvmJirNGSjTau2vxnwqYVY6D9SdDpuX8In3ZWX+h2CVhqq44nrbneukrulzsQBm+6OtcXn117nftMgi9OHm9m2evrtCI7F4K4cPBwovZCp43fa5zfsqmkzIhPixjsUX82sARxsemvQAwmZXqHEq+6htOCnAe4wmXmmMkM8LGFVjBC7u6E7arhkQa9F8bhZpFJjEdK+1yTGZ+OdVcSoNKz8rRioMop+sv15J6VtyZOdkXSOuaH8pF8dK9M8OAg2/4lNlAag7sXwlWiED1lacUX0dghInc3NCScBEVtrKld2wSUkXRSJqj3I2ScTZwjlLP+fwtR9g9Qk7RL/p5VTvl3/NyqPpS29rJGi5kAizgkob8tX9jMmkbzJIq98rPkrIetMyb1YP1LVBdtLjS+Bl/GFMwQWtjBvd7XgylNVt1e1YqxTgHpWa86cxB5RL3IJR4d8lI1svrWUXE0VlP6D57EN3SeF0+Hz1OEoWgVsqV+mnAylh8UZxwPEO/CdXUxC2P319bwuXU66uuuirtN33Cx4NC30ffNtizyttFWqtyYipE4WCBz+eU7kukesuxA8jU7ZRKvtS5nBw4Cs2xSFPX0Z7U37gf7sQKRctKFZP+0EGHT0uh5XHPlVoJPFC/SYb5FbJYV2c1CPgX9OGSRXFLoy8mgRs0IbYNNh6asUX1ekqUZLhyWtjepqWb3gcF2C/k7jeKmuENP3PPFHj7ndGC5lfMahSu8mDw3XKzwcu+IZuE1mERKIHymYaWmvtMeq8dI/rmysqNNUqPJrPscB1sP8vmSBKMepwtYeZ8XULQnTSlvvaZFt39As6eS+Z5dsOd/aHVjTSD+ygW4B80rAkYVQrH9BpxS/LLErWJ1QC6afE89rGR1dIqdw21cwggBY4lKznHFYsJrOQQI+cbknKXEmKNHT1IPWW4HiLaQ071nKh0RSxaaoDebp8Gifsd7s0CGn+6rKb7DaQBNt2I52T010wh/hRvuRkumYyRWjD5asswoHVlMjVOq3YA1GfA3DxaMj9fV55Qop0MaW+qOmR3gEEJl++rxEyxPsbav6rJ3uQ86K7FbWxVhkaM7hqcgbsluI+AXC+8JBmrf4+Gz9kwVyP+XSJcg8tkhrXiY6V3fieyqp/3FZoUqlQtTVnjslYDAR+82+gn/JSd+uR9oi+kdRW4ixCJUe3rC1an6IrqzZK4xOllqjR7QDMwcymwvTwn7qkX1eQULq9CZQeapc0lJqUhfkTluMPwyLb5h7JGpRZ4ouZNEa0odDKlEfjnNsNtn604/2PzN6O2qfS10RpdfEoEZk5CTqmVxeGZHTqM9YRmT4+rSAiWeiRW0b9fsDzNJazOae0mgP888MSPRtJJJWZYLqYLE2iQ=";
+function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0);});}
+function cat(a,b){var c=new Uint8Array(a.length+b.length);c.set(a);c.set(b,a.length);return c;}
+async function sha(buf){return new Uint8Array(await crypto.subtle.digest('SHA-256',buf));}
+async function go(){
+  var pw=document.getElementById('pw').value, err=document.getElementById('err');
+  err.textContent='...';
+  try{
+    var salt=b64(SALT), ct=b64(CT), pwb=new TextEncoder().encode(pw);
+    var ks=new Uint8Array(0), i=0;
+    while(ks.length<ct.length){
+      var ctr=new Uint8Array([(i>>>24)&255,(i>>>16)&255,(i>>>8)&255,i&255]);
+      ks=cat(ks, await sha(cat(cat(salt,pwb),ctr))); i++;
+    }
+    var pt=new Uint8Array(ct.length);
+    for(var j=0;j<ct.length;j++) pt[j]=ct[j]^ks[j];
+    var text=new TextDecoder().decode(pt);
+    if(text.slice(0,7)!=='SFMOK::'){ err.textContent='Password errata.'; return; }
+    document.open(); document.write(text.slice(7)); document.close();
+  }catch(e){ err.textContent='Password errata.'; }
 }
-*{box-sizing:border-box}
-body{margin:0;background:
-  radial-gradient(1200px 600px at 70% -10%, #182131 0%, transparent 60%), var(--bg);
-  color:var(--paper);font-family:Inter,system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased;line-height:1.5}
-.mono{font-family:'Space Mono',monospace}
-.muted{color:var(--muted)}
-a{color:var(--amber);text-decoration:none}
-.wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
-header{display:flex;justify-content:space-between;align-items:flex-end;
-  flex-wrap:wrap;gap:16px;border-bottom:1px solid var(--line);padding-bottom:22px}
-.brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;
-  font-size:clamp(34px,6vw,58px);letter-spacing:.5px;line-height:.9;text-transform:uppercase}
-.brand em{color:var(--amber);font-style:normal}
-.meta-line{text-align:right;font-size:13px}
-.meta-line .mono{color:var(--paper)}
-.nav{margin:16px 0 0;font-family:'Barlow Condensed',sans-serif;letter-spacing:1.5px;
-  text-transform:uppercase;font-size:14px}
-.eyebrow{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
-  letter-spacing:2px;font-size:15px;color:var(--muted);font-weight:600;margin:0 0 16px}
-footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;
-  font-size:11.5px;color:var(--muted);max-width:720px}
-
-.hero{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:700;
-  font-size:clamp(38px,7vw,72px);line-height:.92;margin:30px 0 10px}
-.hero em{color:var(--amber);font-style:normal}
-.lead{font-size:17px;color:var(--paper);max-width:620px;margin-bottom:34px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
-  background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 44px}
-.stat{background:var(--panel);padding:22px 18px}
-.stat-n{font-size:30px;font-weight:700;color:var(--mint)}
-.stat-k{font-size:12px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:1px}
-.step{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:26px 0;border-top:1px solid var(--line)}
-.step-n{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:700;color:var(--amber);line-height:1}
-.step h3{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:1px;
-  font-size:22px;margin:0 0 8px}
-.step p{margin:0 0 8px;color:#cfd3da;font-size:15px}
-.callout{background:rgba(224,184,76,.08);border-left:3px solid var(--amber);
-  padding:16px 18px;border-radius:8px;margin:34px 0;font-size:14.5px;color:#e6e3db}
-</style></head><body><div class="wrap">
-  <div class="nav"><a href="index.html">&larr; Torna alle giocate</a></div>
-  <h1 class="hero">Come <em>funziona</em></h1>
-  <p class="lead">Dietro ogni giocata non c'è una sensazione, ma centinaia di partite reali
-    macinate ogni giorno da un motore statistico. Ecco tutto quello che c'è sotto il cofano —
-    spiegato senza trucchi.</p>
-  <div class="stats"><div class="stat"><div class="stat-n mono">565</div><div class="stat-k">partite reali analizzate</div></div><div class="stat"><div class="stat-n mono">3</div><div class="stat-k">stagioni di storico</div></div><div class="stat"><div class="stat-n mono">4</div><div class="stat-k">mercati (corner, gol, cartellini, gol/gol)</div></div><div class="stat"><div class="stat-n mono">ogni giorno</div><div class="stat-k">aggiornamento automatico</div></div></div>
-  <div class="step"><div class="step-n">01</div><div><h3>Raccogliamo i dati veri</h3><p>Ogni giorno il sistema scarica automaticamente le partite di Serie A (stagioni 2024, 2025, 2026) da un servizio dati professionale: risultati, corner, cartellini, gol — partita per partita. Ad oggi sono 565 partite in archivio, e il numero cresce a ogni giornata di campionato.</p></div></div><div class="step"><div class="step-n">02</div><div><h3>Misuriamo come gioca ogni squadra</h3><p>Per ogni squadra calcoliamo con che frequenza accadono certi eventi — quante volte si superano i 7,5 corner, quante volte escono almeno 2 gol, e così via — tenendo separate le gare in casa da quelle in trasferta, perché una squadra gioca in modo diverso nei due casi.</p></div></div><div class="step"><div class="step-n">03</div><div><h3>Stimiamo le prossime partite, con prudenza</h3><p>Per ogni gara futura combiniamo i dati delle due squadre e stimiamo la probabilità di ciascun evento. Non usiamo la percentuale grezza: applichiamo una correzione statistica (il limite di Wilson) che abbassa la fiducia quando le partite alle spalle sono poche. Dieci partite non valgono come cento, e il sistema lo sa.</p></div></div><div class="step"><div class="step-n">04</div><div><h3>Confrontiamo con la quota reale</h3><p>Una probabilità alta non basta: conta il prezzo. Il sito mostra la quota reale di Bet365 accanto a ogni giocata e segnala se c'è davvero “valore” — cioè se la nostra stima batte quella implicita nella quota. Se non c'è valore, te lo dice.</p></div></div><div class="step"><div class="step-n">05</div><div><h3>Ti mostriamo solo le migliori</h3><p>Tra tutte le giocate possibili, il sito seleziona le più solide della giornata, una per partita, variando i mercati. Un semaforo (verde/giallo) ti dice quanto fidarti di ciascuna.</p></div></div>
-  <div class="callout"><strong>La verità, detta chiara:</strong> nessuno strumento indovina la
-    maggior parte delle scommesse — se esistesse, i bookmaker sarebbero già falliti. Questo
-    sistema non promette vincite: mostra dove i numeri sono più solidi e dove la quota offre
-    valore reale. È un aiuto per ragionare, non una macchina da soldi. Giocate per divertirvi,
-    con soldi che potete permettervi di perdere.</div>
-  <footer>Creato tra amici, per ragionare meglio prima di una giocata. 18+. Il gioco può causare
-    dipendenza. <a href="index.html">Torna alle giocate</a></footer>
-</div></body></html>
+</script></body></html>
