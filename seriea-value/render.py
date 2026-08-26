@@ -179,20 +179,9 @@ SITE_CSS = BASE_CSS + """
 .combo-foot{font-size:11px;color:var(--muted);margin-top:10px}
 .hist{margin-top:48px}
 .hist-summary{font-size:13px;color:var(--muted);margin-bottom:14px}
-.value{margin-top:8px;background:linear-gradient(180deg,#16221c,#131a17);
   border:1px solid #2b4437;border-radius:12px;padding:20px 22px}
-.val-intro{font-size:13px;color:var(--muted);max-width:640px;margin:6px 0 16px}
-.val-empty{font-size:14px;color:var(--muted);padding:8px 0}
-.val-list{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
   border-radius:8px;overflow:hidden}
-.vrow{display:grid;grid-template-columns:1fr auto auto auto;gap:14px;align-items:center;
   background:#141a17;padding:11px 14px;font-size:13.5px}
-.vmatch{min-width:0}
-.vplay{color:var(--paper)}
-.vprob{font-weight:700}
-.vodd{color:var(--amber)}
-.vedge{color:var(--mint);font-weight:700}
-@media(max-width:560px){.vrow{grid-template-columns:1fr auto;gap:6px 12px}}
 .hist-summary b{color:var(--paper)}
 .hrow{display:grid;grid-template-columns:74px 1fr auto 22px;gap:12px;align-items:center;
   padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
@@ -282,29 +271,6 @@ def _history_block(p):
             f'{summary}<div class="hist-list">{trs}</div></section>')
 
 
-def _value_block(p):
-    picks = p.get("value_picks", [])
-    band = p.get("value_band", (1.7, 3.0))
-    head = f'<h3 class="eyebrow">Occasioni di valore \u00b7 quota {band[0]:.1f}\u2013{band[1]:.1f}</h3>'
-    intro = ('<div class="val-intro">Giocate a quota pi\u00f9 alta dove la nostra stima statistica '
-             'batte la quota del bookmaker. Sono rare e si perdono pi\u00f9 spesso delle "sicure": '
-             'sono le uniche, per\u00f2, dove la matematica \u00e8 dalla tua parte.</div>')
-    if not picks:
-        return (f'<section class="value">{head}{intro}'
-                '<div class="val-empty">Nessuna occasione di valore in questo turno. '
-                '\u00c8 normale: il banco prezza bene, e le vere occasioni sono poche. '
-                'Meglio non giocare che giocare senza valore.</div></section>')
-    rows = ""
-    for v in picks:
-        edge = v["edge"] * 100
-        rows += (f'<div class="vrow"><span class="vmatch"><b>{v["match"]}</b></span>'
-                 f'<span class="vplay">{v["label"]}</span>'
-                 f'<span class="vprob mono t-{v["tier"]}-txt">{int(round(v["lower"]*100))}%</span>'
-                 f'<span class="vodd mono">quota {v["odd"]:.2f}</span>'
-                 f'<span class="vedge mono">+{edge:.0f}% valore</span></div>')
-    return f'<section class="value">{head}{intro}<div class="val-list">{rows}</div></section>'
-
-
 def render(p):
     cards = "".join(_match_card(m, i + 1) for i, m in enumerate(p["matches"]))
     if not cards:
@@ -315,7 +281,6 @@ def render(p):
       <section class="combos"><h3 class="eyebrow">Multiple \u00b7 massimo 3 \u00b7 gambe da partite diverse</h3>
         <div class="combo-grid">{combos}</div></section>""" if combos else ""
     history_block = _history_block(p)
-    value_block = _value_block(p)
     seasons = ", ".join(str(s) for s in p["seasons"])
     n_picks = len(p["matches"])
     return f"""<!DOCTYPE html><html lang="it"><head>
@@ -347,8 +312,6 @@ def render(p):
       per darti un'idea di quanto puntare su ciascuna. Sono previsioni statistiche, non certezze:
       giocate solo importi che potete permettervi di perdere.</div>
   </section>
-
-  {value_block}
 
   <h3 class="eyebrow" style="margin-top:44px">Singole \u00b7 il consiglio del sistema</h3>
   <div class="grid" id="grid">{cards}</div>
