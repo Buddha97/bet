@@ -272,7 +272,8 @@ def build_payload(fixtures, feats, odds):
                               "date": fx["fixture"]["date"][:10], "options": passing})
         for s in sugg:
             if s["lower"] >= config.MIN_PROB_COMBO_LEG:
-                singles_pool.append({"match": f"{home}-{away}", **s})
+                singles_pool.append({"match": f"{home}-{away}",
+                                     "date": fx["fixture"]["date"][:10], **s})
                 break
         # caccia al valore: quota reale nella fascia + prob. prudente che la batte
         for s in sugg:
@@ -307,13 +308,22 @@ def build_payload(fixtures, feats, odds):
     # tutte le gare imminenti, in ordine di DATA (la piu' vicina in cima)
     matches.sort(key=lambda m: m["date"])
 
-    # doppie: prendi le 2 gambe piu' solide da partite DIVERSE (indipendenza)
+    # doppie: 2 gambe solide da partite DIVERSE (indipendenza) e RAVVICINATE
+    # (stesso turno/weekend, cosi' sono giocabili insieme)
+    max_apart = getattr(config, "COMBO_MAX_DAYS_APART", 4)
     combos = []
     singles_pool.sort(key=lambda x: x["lower"], reverse=True)
     for i in range(len(singles_pool)):
         for j in range(i+1, len(singles_pool)):
             a, b = singles_pool[i], singles_pool[j]
             if a["match"] == b["match"]:
+                continue
+            try:
+                da = datetime.date.fromisoformat(a["date"])
+                db = datetime.date.fromisoformat(b["date"])
+                if abs((da - db).days) > max_apart:
+                    continue
+            except Exception:
                 continue
             fair = 1/(a["p"]*b["p"]) if a["p"]*b["p"] > 0 else 99
             combos.append({"legs": [a, b], "fair_odds": round(fair, 2),

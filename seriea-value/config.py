@@ -66,6 +66,10 @@ TEAMS = {
 MIN_PROB_SINGLE = 0.68     # ~68%: soglia con margine reale sopra il 66.7% della quota 1.5
 
 # Per una doppia combinata che fa ~1.5, ogni gamba deve essere quasi certa:
+# Doppie: distanza massima (in giorni) tra le due partite di una doppia,
+# per tenerle nello stesso turno/weekend ed essere giocabili insieme.
+COMBO_MAX_DAYS_APART = 4
+
 MIN_PROB_COMBO_LEG = 0.75   # gamba di doppia: solida ma non estrema
 
 # Campione minimo di partite sotto cui NON ci fidiamo di una percentuale:
