@@ -80,6 +80,16 @@ MIN_SAMPLE = 12
 # questa probabilita' (piu' alta = previsione piu' informativa ma piu' rischiosa).
 CORNER_HEADLINE_MINPROB = 0.68   # allineata alla soglia: la linea corner scelta resta solida
 
+# --- Backtest (pagina separata) ---------------------------
+# Allena su una stagione, testa sull'altra (out-of-sample = onesto).
+# Orientare le giocate verso i mercati che hanno reso di piu' nel backtest.
+#  True = spinta gentile verso i mercati vincenti; False = ignora il backtest.
+PREFER_PROVEN_MARKETS = True
+PREFER_WEIGHT = 0.10
+
+BACKTEST_TRAIN_SEASON = 2024
+BACKTEST_TEST_SEASON  = 2025
+
 # --- Caccia al valore -------------------------------------
 # Cerca giocate a quota piu' alta dove la nostra probabilita' prudente
 # batte la probabilita' implicita nella quota reale (Bet365).

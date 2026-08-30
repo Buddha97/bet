@@ -290,7 +290,8 @@ def render(p):
   <header>
     <div>
       <div class="brand">Schedina<br><em>free money</em></div>
-      <div class="nav"><a href="come-funziona.html">Come funziona &rarr;</a></div>
+      <div class="nav"><a href="come-funziona.html">Come funziona &rarr;</a>
+        &nbsp;·&nbsp; <a href="backtest.html">Backtest &rarr;</a></div>
     </div>
     <div class="meta-line">
       <div class="muted">aggiornato</div><div class="mono">{p['generated']}</div>
@@ -348,6 +349,67 @@ def render(p):
 }})();
 </script>
 </body></html>"""
+
+
+def render_backtest(p):
+    icon = {"won": "\u2713", "lost": "\u2717"}
+    mk_rows = "".join(
+        f'<div class="mkrow"><span class="mkname">{m["market"]}</span>'
+        f'<span class="mkbar"><span class="mkfill" style="width:{m["rate"]}%"></span></span>'
+        f'<span class="mkrate mono">{m["rate"]}%</span>'
+        f'<span class="mkn mono muted">{m["won"]}/{m["tot"]}</span></div>'
+        for m in p["market_rows"])
+    trs = ""
+    for r in p["rows"]:
+        odd = f'{r["odd"]:.2f}' if r.get("odd") else "\u2014"
+        st = r["status"]
+        trs += (f'<div class="hrow"><span class="hdate">{_itdate(r["date"])}</span>'
+                f'<span class="hmatch"><b>{r["home"]} - {r["away"]}</b> '
+                f'<span class="hplay">{r["label"]}</span></span>'
+                f'<span class="hodd">{odd}</span>'
+                f'<span class="hicon {st}">{icon[st]}</span></div>')
+    css = SITE_CSS + """
+.bt-hero{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:700;
+  font-size:clamp(34px,6vw,56px);line-height:.9;margin:26px 0 6px}
+.bt-hero em{color:var(--amber);font-style:normal}
+.bt-lead{color:#cfd3da;max-width:640px;margin-bottom:26px;font-size:15px}
+.bt-stats{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;margin-bottom:30px}
+.bt-stat{background:var(--panel);padding:20px 22px;flex:1;min-width:150px}
+.bt-n{font-size:30px;font-weight:700;font-family:'Space Mono',monospace;color:var(--mint)}
+.bt-k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.mkrow{display:grid;grid-template-columns:110px 1fr 46px 60px;gap:12px;align-items:center;
+  padding:9px 0;font-size:13.5px}
+.mkbar{height:10px;background:#0c0f14;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.mkfill{display:block;height:100%;background:var(--mint)}
+.mkrate{font-weight:700;text-align:right}
+.mkn{text-align:right;font-size:11px}
+"""
+    return f"""<!DOCTYPE html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Backtest \u00b7 Schedina free money</title>
+{FONTS}<style>{css}</style></head><body><div class="wrap">
+  <div class="nav"><a href="index.html">&larr; Torna alle giocate</a></div>
+  <h1 class="bt-hero">Backtest <em>stagione {p['test']}</em></h1>
+  <p class="bt-lead">Cosa avrebbe consigliato il sistema nella stagione {p['test']}, usando
+    <b>solo</b> i dati della stagione {p['train']} (mai quelli della partita testata). \u00c8 la
+    prova onesta: niente sensi di poi. Aggiornato il {p['generated']}.</p>
+  <div class="bt-stats">
+    <div class="bt-stat"><div class="bt-n">{p['rate']}%</div>
+      <div class="bt-k">tasso di successo</div></div>
+    <div class="bt-stat"><div class="bt-n">{p['won']}/{p['tot']}</div>
+      <div class="bt-k">consigli vinti</div></div>
+    <div class="bt-stat"><div class="bt-n">{p['test']}</div>
+      <div class="bt-k">stagione testata</div></div>
+  </div>
+  <h3 class="eyebrow">Tasso di successo per tipo di giocata</h3>
+  <div class="mklist">{mk_rows}</div>
+  <h3 class="eyebrow" style="margin-top:36px">Tutte le partite testate</h3>
+  <div class="hist-list">{trs}</div>
+  <footer>Backtest out-of-sample (allenato su {p['train']}, testato su {p['test']}): il numero \u00e8
+    realistico, non gonfiato. Ma \u00e8 il passato e non garantisce il futuro. 18+. Il gioco pu\u00f2
+    causare dipendenza. <a href="index.html">Torna alle giocate</a></footer>
+</div></body></html>"""
 
 
 def render_howto(p):
