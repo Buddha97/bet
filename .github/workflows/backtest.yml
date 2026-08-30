@@ -1,0 +1,56 @@
+name: Backtest
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "aggiorna"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Scarica il progetto
+        uses: actions/checkout@v4
+
+      - name: Prepara Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Genera home + backtest
+        working-directory: seriea-value
+        env:
+          APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+        run: |
+          python analyze.py
+          python backtest.py || true
+
+      - name: Salva la cache dei dati
+        if: always()
+        run: |
+          git config user.name "aggiornamento-automatico"
+          git config user.email "actions@github.com"
+          git add seriea-value/data seriea-value/site || true
+          git commit -m "backtest $(date -u +%F)" || echo "niente da salvare"
+          git pull --rebase --autostash origin main || true
+          git push || echo "niente da pushare"
+
+      - name: Prepara la pubblicazione
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: seriea-value/site
+
+      - name: Pubblica il sito
+        id: deploy
+        uses: actions/deploy-pages@v4
